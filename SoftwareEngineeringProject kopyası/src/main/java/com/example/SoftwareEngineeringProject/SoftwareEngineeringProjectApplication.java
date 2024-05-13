@@ -42,9 +42,9 @@ public class SoftwareEngineeringProjectApplication implements CommandLineRunner{
 	public void CreateDummyData(){
 
 	User user = User.builder()
-			.username("giresun")
-			.password(passwordEncoder.encode("61"))
-			.authorities(Set.of(Role.ROLE_TUTOR))
+			.username("samet")
+			.password(passwordEncoder.encode("admin"))
+			.authorities(Set.of(Role.ROLE_ADMIN))
 			.isEnabled(true)
 			.accountNonLocked(true)
 			.isCredentialsNonExpired(true)
