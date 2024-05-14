@@ -32,20 +32,22 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth ->
                                 auth
+                                        .requestMatchers("/").permitAll()
                                         .requestMatchers("/tutor/{tutorId}").hasAnyRole("ADMIN","TUTOR","STUDENT")
                                         .requestMatchers("/student/{studentId}").hasAnyRole("ADMIN","TUTOR","STUDENT")
                                         .requestMatchers("/notice/create").hasAnyRole("TUTOR","ADMIN")
                                         .requestMatchers("/tutor/**").hasAnyRole("ADMIN","TUTOR")
                                         .requestMatchers("/student/**").hasAnyRole("ADMIN","STUDENT")
                                         .requestMatchers("/notice/**").hasAnyRole("TUTOR","ADMIN","STUDENT")
-                                        .anyRequest().authenticated()
+                                        .anyRequest().permitAll()
 
                 )
-                .formLogin(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable) // Giriş sayfasını devre dışı bırak
                 .httpBasic(Customizer.withDefaults());
         return http.build();
 
     }
+
 
 
 }
