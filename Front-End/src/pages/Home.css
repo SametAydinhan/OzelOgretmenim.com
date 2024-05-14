@@ -47,6 +47,15 @@
     margin-right: 10px;
 }
 
+.content > ul {
+    list-style: none;
+}
+
+.content > ul > li > i {
+    color: #6060e0;
+    margin-right: 8px;
+}
+
 .image {
   width: 30%;
   height: 500px;
@@ -63,3 +72,26 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.quick-tutor-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.quick-tutor-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.253);
+    padding: 15px 260px;
+}
+
+
