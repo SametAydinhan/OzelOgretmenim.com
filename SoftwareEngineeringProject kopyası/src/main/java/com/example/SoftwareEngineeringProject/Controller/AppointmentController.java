@@ -37,12 +37,12 @@ public class AppointmentController {
     }
 
 
-    @PutMapping("/{appId}")
+    @PutMapping("/update/{appId}")
     public Appointment updateAppointment(@PathVariable int appId,@RequestBody Appointment appointment) throws IdNotFoundException {
         return  appointmentService.updateAppointment(appId,appointment);
     }
 
-    @DeleteMapping("/{appId}")
+    @DeleteMapping("/delete/{appId}")
     public void deleteAppointment(@PathVariable int appId) throws IdNotFoundException {
             appointmentService.deleteAppointment(appId);
     }
