@@ -18,7 +18,7 @@ const Home = () => {
   // Tutor verilerini backend'den çeken fonksiyon
   const fetchTutors = async () => {
     try {
-      const response = await axios.get('http://your-backend-url/api/tutors'); // Backend'inizin URL'sini ve API rotasını buraya ekleyin
+      const response = await axios.get('http://localhost:8080/tutor'); // Backend'inizin URL'sini ve API rotasını buraya ekleyin
       setTutors(response.data); // Backend'den gelen veriyi state'e kaydedin
     } catch (error) {
       console.error('Error fetching tutors:', error);

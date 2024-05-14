@@ -30,7 +30,6 @@ public class TutorController {
         return tutorService.getAllTutor();
     }
 
-
     @GetMapping("/{tutorId}")
     public Tutor findById(@PathVariable(name = "tutorId") int tutorId) throws IdNotFoundException {
         return tutorService.findById(tutorId);
