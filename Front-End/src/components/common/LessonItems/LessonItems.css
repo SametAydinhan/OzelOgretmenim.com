@@ -3,7 +3,7 @@
  flex-direction: column;
  border-radius: 15px;
  border: 1px solid rgba(0, 0, 0, 0.1);
- margin-top: -10px;
+ margin-top: 24px;
  background-color: white;
  box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.253);
 }
@@ -55,3 +55,4 @@
     font-weight: 300;
     margin-left: 10px;
 }
+

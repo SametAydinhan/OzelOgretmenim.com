@@ -4,7 +4,7 @@ import './Home.css';
 import Button from '../components/common/Button';
 import { Link } from 'react-router-dom';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import Footer from '../components/footer/footer';
+import Footer from '../components/layout/Footer/Footer';
 
 const Home = () => {
   return (
