@@ -4,6 +4,7 @@ import './Home.css';
 import Button from '../components/common/Button';
 import { Link } from 'react-router-dom';
 import LessonItems from '../components/common/LessonItems/LessonItems';
+import Footer from '../components/footer/footer';
 
 const Home = () => {
   return (
@@ -64,6 +65,7 @@ const Home = () => {
           <Button>Hemen Özel Ders Al</Button>
         </div>
       </section>
+      <Footer />
     </>
   );
 };
