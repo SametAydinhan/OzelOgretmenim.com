@@ -3,7 +3,7 @@ import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import axios from 'axios';
+
 
 const Home = () => {
   const [tutors, setTutors] = useState([]);
@@ -75,32 +75,7 @@ const Home = () => {
           <Button>Hemen Özel Ders Al</Button>
         </div>
       </section>
-      <section>
-        <div>
-          {tutors.length > 0 ? (
-            tutors.map(tutor => (
-              <div key={tutor.id}>
-                <h3>
-                  {tutor.firstName || "Bilinmiyor"} {tutor.lastName || "Bilinmiyor"}
-                </h3>
-                {tutor.city && (
-                  <p>Şehir: {tutor.city}</p>
-                )}
-                {!tutor.city && (
-                  <p>Şehir bilinmiyor</p>
-                )}
-                {tutor.subject ? (
-                  <p>Konu: {tutor.subject}</p>
-                ) : (
-                  <p>Konu bilinmiyor</p>
-                )}
-              </div>
-            ))
-          ) : (
-            <p>Yükleniyor...</p> // Veriler yüklenirken bir mesaj gösterin
-          )}
-        </div>
-      </section>
+
     </>
   );
 };
