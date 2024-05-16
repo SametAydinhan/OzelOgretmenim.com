@@ -3,6 +3,8 @@ import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
+import Footer from '../components/layout/footer/footer';
+import axios from 'axios';
 
 
 const Home = () => {
@@ -75,7 +77,7 @@ const Home = () => {
           <Button>Hemen Özel Ders Al</Button>
         </div>
       </section>
-
+      < Footer />
     </>
   );
 };
