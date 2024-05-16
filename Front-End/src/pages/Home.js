@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
-import { Link } from 'react-router-dom';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import Footer from '../components/layout/Footer/Footer';
+
 
 const Home = () => {
+  const [tutors, setTutors] = useState([]);
+
+  useEffect(() => {
+    fetchTutors();
+  }, []);
+
+  const fetchTutors = async () => {
+    try {
+        const response = await axios.get('http://localhost:8080/tutor'); // Correct URL
+        console.log(response.data); // Gelen veriyi konsola yazdırın
+      setTutors(response.data); // Gelen veriyi state'e kaydedin
+    } catch (error) {
+      console.error('Error fetching tutors:', error);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -20,11 +35,11 @@ const Home = () => {
               </h2>
               <ul>
                 <li>
-                  <i class='fa-solid fa-circle-check'></i> Kendiniz veya
+                  <i className='fa-solid fa-circle-check'></i> Kendiniz veya
                   çocuğunuz için en ideal öğretmeni hemen bul.
                 </li>
                 <li>
-                  <i class='fa-solid fa-circle-check'></i> Alanında uzman
+                  <i className='fa-solid fa-circle-check'></i> Alanında uzman
                   eğitmenlerden en iyi dersleri al.
                 </li>
               </ul>
@@ -43,12 +58,7 @@ const Home = () => {
                 </Button>
               </div>
             </div>
-            <div className='image'>
-              <img
-                src={require('../assests/images/ozelders.png')}
-                alt='ozel ders almak icin en iyi platform'
-              />
-            </div>
+            <div className='image'></div>
           </div>
         </div>
       </section>
@@ -65,7 +75,7 @@ const Home = () => {
           <Button>Hemen Özel Ders Al</Button>
         </div>
       </section>
-      <Footer />
+
     </>
   );
 };
