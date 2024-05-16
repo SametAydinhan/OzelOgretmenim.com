@@ -2,24 +2,21 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
-import { Link } from 'react-router-dom';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import axios from 'axios'; // Axios kütüphanesini import edin
+import axios from 'axios';
 
 const Home = () => {
-  // Tutor bilgilerini saklamak için bir state oluşturun
   const [tutors, setTutors] = useState([]);
 
-  // Component yüklendiğinde backend'den tutor verilerini çekin
   useEffect(() => {
     fetchTutors();
   }, []);
 
-  // Tutor verilerini backend'den çeken fonksiyon
   const fetchTutors = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/tutor'); // Backend'inizin URL'sini ve API rotasını buraya ekleyin
-      setTutors(response.data); // Backend'den gelen veriyi state'e kaydedin
+        const response = await axios.get('http://localhost:8080/tutor'); // Correct URL
+        console.log(response.data); // Gelen veriyi konsola yazdırın
+      setTutors(response.data); // Gelen veriyi state'e kaydedin
     } catch (error) {
       console.error('Error fetching tutors:', error);
     }
@@ -61,9 +58,7 @@ const Home = () => {
                 </Button>
               </div>
             </div>
-            <div className='image'>
-
-            </div>
+            <div className='image'></div>
           </div>
         </div>
       </section>
@@ -80,16 +75,30 @@ const Home = () => {
           <Button>Hemen Özel Ders Al</Button>
         </div>
       </section>
-      {/* Tutor bilgilerini gösterme */}
       <section>
         <div>
-          {tutors.map(tutor => (
-            <div key={tutor.id}>
-              <h3>{tutor.firstName} {tutor.lastName}</h3>
-              <p>Şehir: {tutor.city}</p>
-              {/* Diğer tutor bilgileri */}
-            </div>
-          ))}
+          {tutors.length > 0 ? (
+            tutors.map(tutor => (
+              <div key={tutor.id}>
+                <h3>
+                  {tutor.firstName || "Bilinmiyor"} {tutor.lastName || "Bilinmiyor"}
+                </h3>
+                {tutor.city && (
+                  <p>Şehir: {tutor.city}</p>
+                )}
+                {!tutor.city && (
+                  <p>Şehir bilinmiyor</p>
+                )}
+                {tutor.subject ? (
+                  <p>Konu: {tutor.subject}</p>
+                ) : (
+                  <p>Konu bilinmiyor</p>
+                )}
+              </div>
+            ))
+          ) : (
+            <p>Yükleniyor...</p> // Veriler yüklenirken bir mesaj gösterin
+          )}
         </div>
       </section>
     </>
