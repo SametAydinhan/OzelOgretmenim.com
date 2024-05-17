@@ -3,7 +3,7 @@ import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/Footer';
 import axios from 'axios';
 
 
@@ -60,7 +60,9 @@ const Home = () => {
                 </Button>
               </div>
             </div>
-            <div className='image'></div>
+            <div className='image'>
+                <img src={require('../assests/images/ozelders.png')} alt="" />
+            </div>
           </div>
         </div>
       </section>
