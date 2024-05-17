@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,7 @@ public class Tutor {
 
     private String subject;
 
-    private String RegisterDate;
+    private LocalDateTime registerDate;
 
     private String city;
 
