@@ -30,6 +30,10 @@
       }
     }
   }
+  .link {
+    color: black;
+    text-decoration: none;
+  }
 }
 
 .right-side {
