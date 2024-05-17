@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import styled from "./Login.module.css";
-import Button from "../components/common/Button";
+import React, { useState } from 'react';
+import styled from './Login.module.css';
+import Button from '../components/common/Button';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -17,36 +20,48 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Burada login işlemleri yapılabilir
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    console.log('Email:', email);
+    console.log('Password:', password);
+    navigate('/');
   };
 
   return (
     <div className={styled.container}>
-      <form onSubmit={handleSubmit} className={styled["form-container"]}>
-        <h2>Giriş Yap</h2>
-        <div className={styled.inputs}>
-          <label htmlFor='email'>E-posta</label>
+      <div className={styled['form-container']}>
+        <form onSubmit={handleSubmit}>
+          <h2>Giriş Yap</h2>
+          <p>Eğer bir hesabın yoksa aşşağıdaki linkten kayıt ol</p>
+          <Link to='/signup' className={styled.register}>
+            Buradan Kayıt Ol!
+          </Link>
+          <label htmlFor='email' className={styled['email-label']}>
+            E posta
+          </label>
           <input
+            id={styled.email}
             type='email'
-            id='email'
+            placeholder='E posta adresini gir'
             value={email}
             onChange={handleEmailChange}
             required
           />
-        </div>
-        <div className={styled.inputs}>
-          <label htmlFor='password'>Şifre</label>
+          <label htmlFor='password' className={styled['password-label']}>
+            Şifre
+          </label>
           <input
+            id={styled.password}
             type='password'
-            id='password'
+            placeholder='Şifreni gir'
             value={password}
             onChange={handlePasswordChange}
             required
           />
-        </div>
-        <button type='submit' className={styled.button}>Giriş Yap</button>
-      </form>
+          <button type='submit' className={styled.button}>
+              Giriş Yap
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
