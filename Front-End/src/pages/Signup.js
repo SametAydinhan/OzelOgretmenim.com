@@ -1,84 +1,155 @@
-import React, { useState } from "react";
-import styled from "./SignUp.module.css";
-import Button from "../components/common/Button";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from './SignUp.module.css';
+
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+    const [step, setStep] = useState(0);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+    const handleNextStep = (nextStep) => {
+        setStep(nextStep);
+    };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setError("Şifreler uyuşmuyor!");
-      return;
-    }
-    setError("");
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
-
-  return (
-    <div className={styled.container}>
-      <form onSubmit={handleSubmit} className={styled["form-container"]}>
-        <h2>Kayıt Ol</h2>
-        <p>Zaten bir hesabınız varsa aşağıdaki linkten giriş yapın</p>
-
-        <Link to='/login' className={styled.register}>
-            Buradan Giriş Yap!
-          </Link>
-        {error && <p className={styled.error}>{error}</p>}
-        <div className={styled.inputs}>
-          <label htmlFor='email'>E-posta</label>
-          <input
-            type='email'
-            id='email'
-            value={email}
-            onChange={handleEmailChange}
-            required
-            placeholder="E-posta adresini giriniz."
-          />
+    return (
+        <div className={styled.container}>
+            {step === 0 && (
+                <>
+                    <div className={styled.box}>
+                        <h2>Özel Ders Vermek İstiyorum</h2>
+                        <p>Uzman olduğum alanda ders vermek istiyorum.</p>
+                        <button className={styled.button} onClick={() => handleNextStep(1)}>
+                            Özel Ders Vermeye Başla
+                        </button>
+                    </div>
+                    <div className={styled.box}>
+                        <h2>Özel Ders Almak İstiyorum</h2>
+                        <p>İhtiyaçlarına en uygun öğretmenlerle tanışın.</p>
+                        <button className={styled.button} onClick={() => handleNextStep(2)}>
+                            Özel Ders Almaya Başla
+                        </button>
+                    </div>
+                </>
+            )}
+            {step === 1 && (
+                <TeacherForm  />
+            )}
+            {step === 2 && (
+                <StudentForm />
+            )}
         </div>
-        <div className={styled.inputs}>
-          <label htmlFor='password'>Şifre</label>
-          <input
-            type='password'
-            id='password'
-            value={password}
-            onChange={handlePasswordChange}
-            required
-            placeholder="Şifrenizi girin"
-          />
-        </div>
-        <div className={styled.inputs}>
-          <label htmlFor='confirmPassword'>Şifreyi Onayla</label>
-          <input
-            type='password'
-            id='confirmPassword'
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            required
-            placeholder="Şifreyi onaylayın"
-          />
-        </div>
-        <button type='submit' className={styled.button}>Kayıt Ol</button>
-      </form>
-    </div>
-  );
+    );
 };
+
+
+const TeacherForm = () => {
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [city, setCity] = useState('');
+    const [district, setDistrict] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            alert('Şifreler uyuşmuyor!');
+            return;
+        }
+        // Backend'e veri gönder
+        console.log('Submitted:', { name, surname, email, phone, city, district, password });
+    };
+
+
+
+    return (
+
+
+
+        <form className={styled.formContainer} onSubmit={handleSubmit}>
+            <label htmlFor="name">Adınız</label>
+            <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+
+            <label htmlFor="surname">Soyadınız</label>
+            <input type="text" id="surname" value={surname} onChange={(e) => setSurname(e.target.value)} required />
+
+            <label htmlFor="email">Email Adresiniz</label>
+            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+
+
+            <label htmlFor="phone">Telefon Numaranız</label>
+            <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+
+            <label htmlFor="city">İl</label>
+            <input type="text" id="city" value={city} onChange={(e) => setCity(e.target.value)} required />
+
+            <label htmlFor="district">İlçe</label>
+            <input type="text" id="district" value={district} onChange={(e) => setDistrict(e.target.value)} required />
+
+            <label htmlFor="password">Şifre</label>
+            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+            <label htmlFor="confirmPassword">Şifre (Tekrar)</label>
+            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+
+            <button type="submit" className={styled.button}>Profili Oluştur</button>
+        </form>
+    );
+};
+
+const StudentForm = () => {
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [city, setCity] = useState('');
+    const [district, setDistrict] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            alert('Şifreler uyuşmuyor!');
+            return;
+        }
+        // Backend'e veri gönder
+        console.log('Submitted:', { name, surname, email, phone, city, district, password });
+    };
+
+    return (
+        <form className={styled.formContainer} onSubmit={handleSubmit}>
+            <label htmlFor="name">Adınız</label>
+            <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+
+            <label htmlFor="surname">Soyadınız</label>
+            <input type="text" id="surname" value={surname} onChange={(e) => setSurname(e.target.value)} required />
+
+            <label htmlFor="email">Email Adresiniz</label>
+            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+
+
+            <label htmlFor="phone">Telefon Numaranız</label>
+            <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+
+            <label htmlFor="city">İl</label>
+            <input type="text" id="city" value={city} onChange={(e) => setCity(e.target.value)} required />
+
+            <label htmlFor="district">İlçe</label>
+            <input type="text" id="district" value={district} onChange={(e) => setDistrict(e.target.value)} required />
+
+            <label htmlFor="password">Şifre</label>
+            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+            <label htmlFor="confirmPassword">Şifre (Tekrar)</label>
+            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+
+            <button type="submit" className={styled.button}>Profili Oluştur</button>
+
+        </form>
+    );
+};
+
 
 export default SignUp;
