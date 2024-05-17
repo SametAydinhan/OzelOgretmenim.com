@@ -1,5 +1,6 @@
 import React from 'react';
 import './footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -10,8 +11,8 @@ const Footer = () => {
             <ul>
               <li>
                 <i class='fa-solid fa-angle-right'></i>
-                <a href='#'>Hakkımızda</a>
-              </li>
+                <Link to='/about-us'>Hakkımızda</Link>
+              </li> 
             </ul>
           </div>
           <div className='footer-section'>
