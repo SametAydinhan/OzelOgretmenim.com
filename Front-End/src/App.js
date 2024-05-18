@@ -10,10 +10,11 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AboutUs from './pages/AboutUs';
+import { ContextProvider } from './context/Context';
 
 function App() {
   return (
-    <>
+    <ContextProvider>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
@@ -21,7 +22,7 @@ function App() {
         <Route path='/about-us' element={<AboutUs/>} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
-    </>
+    </ContextProvider>
   );
 }
 
