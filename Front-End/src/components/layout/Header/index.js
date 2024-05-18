@@ -2,16 +2,21 @@ import React from 'react';
 import Button from '../../common/Button';
 import styled from './header.module.css';
 import { Link } from 'react-router-dom';
+import { Context } from '../../../context/Context';
+import { useContext } from 'react';
 
 
 const Header = () => {
-
+    const { setStep } = useContext(Context);
+    const handleStep = (step) => {
+        setStep(step);
+    };
 
   return (
 
     <nav className={styled.navbar}>
       <div className={styled['left-side']}>
-        <h1>Özel Ders</h1>
+        <Link to='/' className={styled['logo-title']}>Özel Ders</Link>
         <ul>
           <li>
             <Link className={styled.link} to='/'>
@@ -44,7 +49,7 @@ const Header = () => {
           </Link>
         </Button>
         <Button styled={{ border: '1px solid #3898F1' }}>
-          <Link className={styled.fill} to='/signup'>
+          <Link className={styled.fill} to='/signup' onClick={() => {setStep(0)}}>
             Kayıt Ol
           </Link>
         </Button>

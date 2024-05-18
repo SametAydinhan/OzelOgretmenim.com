@@ -1,8 +1,11 @@
 import React from 'react';
 import './footer.css';
 import { Link } from 'react-router-dom';
+import { Context } from '../../../context/Context';
+import { useContext } from 'react';
 
 const Footer = () => {
+  const { setStep } = useContext(Context);
   return (
     <footer className='footer'>
       <div className='footer-links'>
@@ -45,7 +48,14 @@ const Footer = () => {
             </li>
             <li>
               <i class='fa-solid fa-angle-right'></i>
-              <Link to='/signup'>Ücretsiz Kayıt Ol</Link>
+              <Link
+                to='/signup'
+                onClick={() => {
+                  setStep(0);
+                }}
+              >
+                Ücretsiz Kayıt Ol
+              </Link>
             </li>
           </ul>
         </div>

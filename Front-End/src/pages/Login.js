@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from './Login.module.css';
 import Button from '../components/common/Button';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { Context } from '../context/Context';
 
 const Login = () => {
+const { setStep } = useContext(Context);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ const Login = () => {
     console.log('Password:', password);
     navigate('/');
   };
+  const handleStep = (step) => {
+    setStep(step);
+  }
 
   return (
     <div className={styled.container}>
@@ -32,7 +36,7 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <h2>Giriş Yap</h2>
           <p>Eğer bir hesabın yoksa aşşağıdaki linkten kayıt ol</p>
-          <Link to='/signup' className={styled.register}>
+          <Link to='/signup' className={styled.register} onClick={() => {handleStep(0)}}>
             Buradan Kayıt Ol!
           </Link>
           <label htmlFor='email' className={styled['email-label']}>
