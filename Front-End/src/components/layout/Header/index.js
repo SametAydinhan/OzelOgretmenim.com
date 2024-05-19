@@ -13,10 +13,11 @@ const Header = () => {
     };
 
   return (
-
     <nav className={styled.navbar}>
       <div className={styled['left-side']}>
-        <Link to='/' className={styled['logo-title']}>Özel Ders</Link>
+        <Link to='/' className={styled['logo-title']}>
+          Özel Ders
+        </Link>
         <ul>
           <li>
             <Link className={styled.link} to='/'>
@@ -24,7 +25,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link className={styled.link} href='#'>
+            <Link className={styled.link} to='/tutor-advertisements'>
               İlanlar
             </Link>
           </li>
@@ -49,7 +50,13 @@ const Header = () => {
           </Link>
         </Button>
         <Button styled={{ border: '1px solid #3898F1' }}>
-          <Link className={styled.fill} to='/signup' onClick={() => {setStep(0)}}>
+          <Link
+            className={styled.fill}
+            to='/signup'
+            onClick={() => {
+              setStep(0);
+            }}
+          >
             Kayıt Ol
           </Link>
         </Button>
