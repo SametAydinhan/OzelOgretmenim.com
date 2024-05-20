@@ -5,6 +5,7 @@ import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
 import Footer from '../components/layout/Footer/Footer';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -56,12 +57,12 @@ const Home = () => {
                     alignItems: 'center',
                   }}
                 >
-                  Öğetmen Bul
+                  Öğretmen Bul
                 </Button>
               </div>
             </div>
             <div className='image'>
-                <img src={require('../assests/images/ozelders.png')} alt="" />
+              <img src={require('../assests/images/ozelders.png')} alt='' />
             </div>
           </div>
         </div>
@@ -76,10 +77,12 @@ const Home = () => {
             Özel ders alanında her yıl onbinlerce öğrenci aradığı öğretmeni
             buluyor
           </p>
-          <Button>Hemen Özel Ders Al</Button>
+          <Link to={'/tutor-advertisements'}>
+            <Button>Hemen Özel Ders Al</Button>
+          </Link>
         </div>
       </section>
-      < Footer />
+      <Footer />
     </>
   );
 };

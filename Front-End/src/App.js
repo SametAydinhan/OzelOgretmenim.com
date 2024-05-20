@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AboutUs from './pages/AboutUs';
 import { ContextProvider } from './context/Context';
+import TutorAdvertisement from './pages/TutorAdvertisement';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/about-us' element={<AboutUs/>} />
+        <Route path='/tutor-advertisements' element={<TutorAdvertisement />} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </ContextProvider>
