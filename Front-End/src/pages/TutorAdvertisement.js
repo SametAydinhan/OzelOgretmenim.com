@@ -5,7 +5,7 @@ import styled from './TutorAdvertisement.module.css';
 import MaxMinSlider from '../components/common/MaxMinSlider/MaxMinSlider';
 import TutorCard from '../components/TutorCard';
 import { Context } from '../context/Context';
-const DUMMY_DATA = [
+export const DUMMY_DATA = [
   {
     id: 1,
     name: 'Ayşe Yılmaz',
@@ -13,7 +13,7 @@ const DUMMY_DATA = [
     city: 'İstanbul',
     subject: 'Matematik',
     title: 'Deneyimli Matematik Öğretmeni',
-    price: 100,
+    price: 1000,
     description:
       '15 yıllık tecrübemle her seviyede matematik dersi veriyorum. Öğrencilerimin sınav başarıları garantidir.',
   },
@@ -185,26 +185,29 @@ const TutorAdvertisement = () => {
                 required
                 placeholder='Şehir adı giriniz'
               />
+
               <label>Cinsiyet</label>
               <div className={styled['radio-container']}>
-                <div className={styled.radio}>
+                <div className={styled.checkbox}>
                   <input
-                    type='radio'
+                    type='checkbox'
                     id='gender'
                     name='gender'
                     value={'erkek'}
+                    checked={selectedGender === 'erkek'}
                     onChange={handleCheckboxChange}
                   />
                   <label htmlFor='erkek' className={styled['radio-label']}>
                     Erkek
                   </label>
                 </div>
-                <div className={styled.radio}>
+                <div className={styled.checkbox}>
                   <input
-                    type='radio'
+                    type='checkbox'
                     id='gender'
                     name='gender'
                     value={'kadın'}
+                    checked={selectedGender === 'kadın'}
                     onChange={handleCheckboxChange}
                   />
                   <label htmlFor='kadın' className={styled['radio-label']}>
@@ -212,9 +215,10 @@ const TutorAdvertisement = () => {
                   </label>
                 </div>
               </div>
+
               <MaxMinSlider />
             </div>
-            <div className={styled['tutor-card']}>
+            <div>
               <TutorCard tutors={filteredTutors} />
             </div>
           </div>
