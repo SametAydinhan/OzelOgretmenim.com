@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { Context } from '../../../context/Context';
+import styled from './MaxMinSlider.module.css';
 
 function valuetext(value) {
   return `${value}₺`;
@@ -25,7 +26,16 @@ export default function MaxMinSlider() {
 
   return (
     <Box sx={{ width: 250 }}>
-      <label htmlFor='price'>Fiyat Aralığını seç</label>
+      <div className={styled['slider-label']}>
+        <label  htmlFor='price'>
+          Fiyat Aralığını seç
+        </label>
+      </div>
+
+      <div className={styled['max-min']}>
+        <span>0₺</span>
+        <span>5000₺</span>
+      </div>
       <Slider
         id='price'
         name='price'
