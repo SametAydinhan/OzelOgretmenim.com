@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
 import styled from './SignUp.module.css';
 import { Context } from '../context/Context';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignUp = () => {
   const { step, setStep } = useContext(Context);
 
-  const handleNextStep = (nextStep) => {
-    setStep(nextStep);
-  };
 
   return (
     <div className={styled.container}>
@@ -16,14 +15,14 @@ const SignUp = () => {
           <div className={styled.box}>
             <h2>Özel Ders Vermek İstiyorum</h2>
             <p>Uzman olduğum alanda ders vermek istiyorum.</p>
-            <button className={styled.button} onClick={() => handleNextStep(1)}>
+            <button className={styled.button} onClick={() => setStep(1)}>
               Özel Ders Vermeye Başla
             </button>
           </div>
           <div className={styled.box}>
             <h2>Özel Ders Almak İstiyorum</h2>
             <p>İhtiyaçlarına en uygun öğretmenlerle tanışın.</p>
-            <button className={styled.button} onClick={() => handleNextStep(2)}>
+            <button className={styled.button} onClick={() => setStep(2)}>
               Özel Ders Almaya Başla
             </button>
           </div>
@@ -42,26 +41,58 @@ const TeacherForm = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
-  const [district, setDistrict] = useState('');
   const [password, setPassword] = useState('');
+  const [subject, setSubject] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [userName, setUserName] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
+  const navigate = useNavigate();
+  const description =
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam porro totam maiores ullam omnis assumenda eos odit, autem deserunt veniam dolore nihil aut a reprehenderit minima voluptate vitae facilis repellendus.';
+  const image = '';
+  const handleCheckboxChange = (event) => {
+    const gender = event.target.nextSibling.textContent;
+    setSelectedGender(gender.toLowerCase());
+    if (event.target.checked) {
+      setSelectedGender(gender.toLowerCase());
+    } else {
+      setSelectedGender('');
+    }
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Şifreler uyuşmuyor!');
       return;
     }
+
+    try {
+      const userResponse = await axios.post(
+        'http://localhost:8080/tutor/register',
+        {
+          name,
+          surname,
+          subject,
+          phone,
+          email,
+          image,
+          description,
+          selectedGender,
+          city,
+          user: {
+            userName,
+            password,
+            authorities: ['ROLE_TUTOR'],
+          },
+        }
+      );
+      console.log('Register response:', userResponse.data);
+      navigate('/');
+    } catch (error) {
+      console.error('Register failed:', error);
+    }
     // Backend'e veri gönder
-    console.log('Submitted:', {
-      name,
-      surname,
-      email,
-      phone,
-      city,
-      district,
-      password,
-    });
   };
   const handleStep = (step) => {
     setStep(step);
@@ -113,15 +144,51 @@ const TeacherForm = () => {
         onChange={(e) => setCity(e.target.value)}
         required
       />
-
-      <label htmlFor='district'>İlçe</label>
+      <label htmlFor='subject'>Ders</label>
       <input
         type='text'
-        id='district'
-        value={district}
-        onChange={(e) => setDistrict(e.target.value)}
+        id='subject'
+        value={subject}
+        onChange={(e) => setSubject(e.target.value)}
         required
       />
+      <label htmlFor='username'>Kullanıcı Adı</label>
+      <input
+        type='text'
+        id='username'
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        required
+      />
+      <label>Cinsiyet</label>
+      <div className={styled['radio-container']}>
+        <div className={styled.checkbox}>
+          <input
+            type='checkbox'
+            id='erkek'
+            name='gender'
+            value={'erkek'}
+            checked={selectedGender === 'erkek'}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor='erkek' className={styled['radio-label']}>
+            Erkek
+          </label>
+        </div>
+        <div className={styled.checkbox}>
+          <input
+            type='checkbox'
+            id='kadın'
+            name='gender'
+            value={'kadın'}
+            checked={selectedGender === 'kadın'}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor='kadın' className={styled['radio-label']}>
+            Kadın
+          </label>
+        </div>
+      </div>
 
       <label htmlFor='password'>Şifre</label>
       <input

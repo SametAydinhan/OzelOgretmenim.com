@@ -54,7 +54,6 @@ public class TutorService {
                     .email(tutor.getEmail())
                     .image(tutor.getImage())
                     .description(tutor.getDescription())
-                    .registerDate(tutor.getRegisterDate())
                     .gender(tutor.getGender())
                     .city(tutor.getCity())
                     .user(user)

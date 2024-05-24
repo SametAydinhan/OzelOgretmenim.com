@@ -73,5 +73,19 @@
     outline: none;
   }
   }
+  .radio-container{
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    .checkbox{
+        display: flex;
+        margin-right: 30px;
+        justify-content: center;
+        align-items: baseline;
+        label{
+            margin-left: 5px;
+        }
+    }
+}
 
 
