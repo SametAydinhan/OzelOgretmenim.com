@@ -8,7 +8,7 @@ function valuetext(value) {
   return `${value}₺`;
 }
 
-const minDistance = 500;
+const minDistance = 100;
 
 export default function MaxMinSlider() {
     const { priceRange, setPriceRange } = useContext(Context);
