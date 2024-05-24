@@ -125,7 +125,7 @@ const TutorAdvertisement = () => {
   const [subject, setSubject] = useState('');
   const [city, setCity] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
-  const { priceRange, setPriceRange } = useContext(Context);
+  const { priceRange, } = useContext(Context);
 
   const handleCheckboxChange = (event) => {
     const gender = event.target.nextSibling.textContent;
@@ -136,9 +136,7 @@ const TutorAdvertisement = () => {
       setSelectedGender('');
     }
   };
-  const handlePriceChange = (newValue) => {
-    setPriceRange(newValue);
-  }
+
 
   const filteredTutors = DUMMY_DATA.filter((tutor) => {
     return (

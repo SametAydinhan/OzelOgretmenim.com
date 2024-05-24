@@ -53,6 +53,8 @@
 }
 
 .right-side {
+  position: sticky;
+  top: 20px;
   width: 30%;
   min-width: 30%;
   display: flex;
@@ -86,13 +88,13 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    .price-title{
-        font-size: 16px;
-        font-weight: 600;
+    .price-title {
+      font-size: 16px;
+      font-weight: 600;
     }
-    .price{
-        font-size: 16px;
-        font-weight: 600;
+    .price {
+      font-size: 16px;
+      font-weight: 600;
     }
   }
   .send-message-btn {
@@ -105,17 +107,17 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #1A6AB4;
+    background-color: #1a6ab4;
     color: white;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s ease;
     i {
-        margin-right: 10px;
+      margin-right: 10px;
     }
     &:hover {
-      background-color: #1A6AB4;
+      background-color: #1a6ab4;
       transform: scale(1.05);
     }
   }

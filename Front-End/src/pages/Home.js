@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
 import Footer from '../components/layout/Footer/Footer';
-import axios from 'axios';
+
 import { Link } from 'react-router-dom';
 
 
 const Home = () => {
-  const [tutors, setTutors] = useState([]);
+//   const [tutors, setTutors] = useState([]);
 
-  useEffect(() => {
-    fetchTutors();
-  }, []);
+//   useEffect(() => {
+//     fetchTutors();
+//   }, []);
 
-  const fetchTutors = async () => {
-    try {
-        const response = await axios.get('http://localhost:8080/tutor'); // Correct URL
-        console.log(response.data); // Gelen veriyi konsola yazdırın
-      setTutors(response.data); // Gelen veriyi state'e kaydedin
-    } catch (error) {
-      console.error('Error fetching tutors:', error);
-    }
-  };
+//   const fetchTutors = async () => {
+//     try {
+//         const response = await axios.get('http://localhost:8080'); // Correct URL
+//         console.log(response.data); // Gelen veriyi konsola yazdırın
+//       setTutors(response.data); // Gelen veriyi state'e kaydedin
+//     } catch (error) {
+//       console.error('Error fetching tutors:', error);
+//     }
+//   };
 
   return (
     <>

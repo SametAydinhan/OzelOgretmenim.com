@@ -57,7 +57,6 @@ public class SoftwareEngineeringProjectApplication implements CommandLineRunner{
 					.user(user)
 					.subject("math")
 					.build();
-
 			tutorRepository.save(student);
 
 
