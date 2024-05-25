@@ -5,16 +5,14 @@ import com.example.SoftwareEngineeringProject.Entity.Notice;
 import com.example.SoftwareEngineeringProject.Entity.Tutor;
 import com.example.SoftwareEngineeringProject.Entity.User;
 import com.example.SoftwareEngineeringProject.Repository.TutorRepository;
+import com.example.SoftwareEngineeringProject.Repository.UserRepository;
 import com.example.SoftwareEngineeringProject.Service.NoticeService;
-import com.example.SoftwareEngineeringProject.Service.TutorService;
 import com.example.SoftwareEngineeringProject.Service.UserService;
 import com.example.SoftwareEngineeringProject.Exception.IdNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +24,13 @@ public class NoticeController {
     private final NoticeService noticeService;
     private final UserService userService;
     private  final TutorRepository tutorRepository;
+    private final UserRepository userRepository;
 
-    public NoticeController(NoticeService noticeService, UserService userService,TutorRepository tutorRepository) {
+    public NoticeController(NoticeService noticeService, UserService userService, TutorRepository tutorRepository, UserRepository userRepository) {
         this.noticeService = noticeService;
         this.userService = userService;
         this.tutorRepository = tutorRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -57,6 +57,7 @@ public class NoticeController {
             throw new IdNotFoundException("Id Not ");
         }
     }
+
 
 
     @GetMapping("/{noticeId}")
