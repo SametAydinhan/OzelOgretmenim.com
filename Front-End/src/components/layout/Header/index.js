@@ -8,7 +8,7 @@ import { useContext } from 'react';
 
 
 const Header = () => {
-    const { setStep } = useContext(Context);
+    const { setStep,setIsLoggedIn,setUser } = useContext(Context);
     const handleStep = (step) => {
         setStep(step);
     };
