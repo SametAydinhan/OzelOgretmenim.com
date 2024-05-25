@@ -67,7 +67,7 @@ const TutorDetail = () => {
                             <span className={styled['price-title']}>Saatlik Ücret</span>
                             <span className={styled['price']}>{tutor.price}₺</span>
                         </div>
-                        <Link className={styled['send-message-btn']}>
+                        <Link to='/tutor-advertisements/1/message' className={styled['send-message-btn']}>
                             <i class='fa-solid fa-comments'></i>
                             Mesaj gönder
                         </Link>

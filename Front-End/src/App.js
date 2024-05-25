@@ -13,11 +13,15 @@ import AboutUs from './pages/AboutUs';
 import { ContextProvider } from './context/Context';
 import TutorAdvertisement from './pages/TutorAdvertisement';
 import TutorDetail from './pages/TutorDetail';
+import { MessagePage } from './pages/MessagePage';
+import ScrollToTop from './components/ScrollTop';
+import EditProfile from './pages/EditProfile';
 
 function App() {
   return (
     <ContextProvider>
       <Router>
+        <ScrollToTop/>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
@@ -28,6 +32,8 @@ function App() {
             element={<TutorAdvertisement />}
           />
             <Route path='/tutor-advertisements/:id' element={<TutorDetail />} />
+            <Route path='/tutor-advertisements/:id/message' element={<MessagePage />} />
+            <Route path='/edit-profile' element={<EditProfile />}/>
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </Router>
