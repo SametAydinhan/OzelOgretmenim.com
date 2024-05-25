@@ -50,6 +50,10 @@ public class StudentService {
         Student savedStudent = Student.builder()
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
+                .city(student.getCity())
+                .email(student.getEmail())
+                .gender(student.getGender())
+                .telephoneNumber(student.getTelephoneNumber())
                 .user(user)
                 .build();
 
@@ -69,7 +73,10 @@ public class StudentService {
                 Student tempStudent = savedStudent.get();
                 tempStudent.setFirstName(student.getFirstName());
                 tempStudent.setLastName(student.getLastName());
-
+                tempStudent.setCity(student.getCity());
+                tempStudent.setEmail(student.getEmail());
+                tempStudent.setGender(student.getGender());
+                tempStudent.setTelephoneNumber(student.getTelephoneNumber());
                 studentRepository.save(tempStudent);
 
                 return tempStudent;
