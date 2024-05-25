@@ -8,7 +8,7 @@ import { useContext } from 'react';
 
 
 const Header = () => {
-    const { setStep,setIsLoggedIn,setUser } = useContext(Context);
+    const { setStep,setIsLoggedIn,setUser,isLoggedIn,user } = useContext(Context);
     const handleStep = (step) => {
         setStep(step);
     };
@@ -41,31 +41,40 @@ const Header = () => {
           </li>
         </ul>
       </div>
+      {isLoggedIn ? (
       <div className={styled['right-side']}>
-        <Button
-          styled={{
-            backgroundColor: 'white',
-            color: '#3898F1',
-            border: '1px solid #3898F1',
-            marginRight: '5px',
-          }}
-        >
-          <Link className={styled.border} to='/login'>
-            Giriş Yap
-          </Link>
-        </Button>
-        <Button styled={{ border: '1px solid #3898F1' }}>
-          <Link
-            className={styled.fill}
-            to='/signup'
-            onClick={() => {
-              setStep(0);
+        <Link to='/edit-profile'>{user.userName}</Link>
+        <Button onClick={handleLoggedIn} styled={{backgroundColor: 'red',
+            marginLeft: '10px',
+        }}>Çıkış Yap</Button>
+        </div>
+      ) : (
+        <div className={styled['right-side']}>
+          <Button
+            styled={{
+              backgroundColor: 'white',
+              color: '#3898F1',
+              border: '1px solid #3898F1',
+              marginRight: '5px',
             }}
           >
-            Kayıt Ol
-          </Link>
-        </Button>
-      </div>
+            <Link className={styled.border} to='/login'>
+              Giriş Yap
+            </Link>
+          </Button>
+          <Button styled={{ border: '1px solid #3898F1' }}>
+            <Link
+              className={styled.fill}
+              to='/signup'
+              onClick={() => {
+                setStep(0);
+              }}
+            >
+              Kayıt Ol
+            </Link>
+          </Button>
+        </div>
+      )}
     </nav>
   );
 };

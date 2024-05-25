@@ -1,29 +1,29 @@
-import React from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
 import Footer from '../components/layout/Footer/Footer';
+import { Context } from '../context/Context';
+import { useNavigate } from 'react-router-dom';
 
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 
 
 const Home = () => {
-      const [tutors, setTutors] = useState([]);
+    const navigate = useNavigate();
+    const {lessons,setLessons} = useContext(Context);
+    const handleLesson = (e) => {
+        setLessons(e.target.value);
+    }
+    const filterLesson =  () => {
+        navigate("/tutor-advertisements");
+    }
 
-      useEffect(() => {
-        fetchTutors();
-      }, []);
-
-      const fetchTutors = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080'); // Correct URL
-            console.log(response.data); // Gelen veriyi konsola yazdırın
-          setTutors(response.data); // Gelen veriyi state'e kaydedin
-        } catch (error) {
-          console.error('Error fetching tutors:', error);
-        }
-      };
+    const tutorAdvertisementPage = () => {
+        navigate("/tutor-advertisements");
+    }
 
     return (
         <>
@@ -47,8 +47,9 @@ const Home = () => {
                                 </li>
                             </ul>
                             <div className='searchbar-container'>
-                                <input type='text' placeholder='Hangi dersi almak istersin?' />
+                                <input type='text' placeholder='Hangi dersi almak istersin?' value={lessons} onChange={handleLesson}/>
                                 <Button
+                                    onClick={filterLesson}
                                     styled={{
                                         width: '300px',
                                         height: '35px',
@@ -77,7 +78,7 @@ const Home = () => {
                         Özel ders alanında her yıl onbinlerce öğrenci aradığı öğretmeni
                         buluyor
                     </p>
-                    <Button>Hemen Özel Ders Al</Button>
+                    <Button onClick={tutorAdvertisementPage}>Hemen Özel Ders Al</Button>
                 </div>
             </section>
             < Footer />
