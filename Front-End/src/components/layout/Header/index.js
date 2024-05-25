@@ -7,7 +7,7 @@ import { useContext } from 'react';
 
 
 const Header = () => {
-    const { setStep } = useContext(Context);
+    const { setStep, setAppointment } = useContext(Context);
     const handleStep = (step) => {
         setStep(step);
     };
@@ -25,7 +25,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link className={styled.link} to='/tutor-advertisements'>
+            <Link className={styled.link} onClick={setAppointment(false)} to='/tutor-advertisements'>
               İlanlar
             </Link>
           </li>
