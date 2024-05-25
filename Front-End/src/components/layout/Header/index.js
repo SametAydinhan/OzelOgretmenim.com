@@ -6,11 +6,16 @@ import { Context } from '../../../context/Context';
 import { useContext } from 'react';
 
 
+
 const Header = () => {
-    const { setStep, setAppointment } = useContext(Context);
+    const { setStep } = useContext(Context);
     const handleStep = (step) => {
         setStep(step);
     };
+    const handleLoggedIn = () => {
+        setIsLoggedIn(false);
+        setUser(null);
+    }
 
   return (
     <nav className={styled.navbar}>
@@ -25,7 +30,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link className={styled.link} onClick={setAppointment(false)} to='/tutor-advertisements'>
+            <Link className={styled.link} to='/tutor-advertisements'>
               İlanlar
             </Link>
           </li>
