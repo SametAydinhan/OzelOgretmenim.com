@@ -7,9 +7,8 @@ import axios from 'axios';
 const SignUp = () => {
   const { step, setStep } = useContext(Context);
 
-
   return (
-    <div className={styled.container}>
+    <div className={styled['main-container']}>
       {step === 0 && (
         <>
           <div className={styled.box}>
@@ -67,25 +66,27 @@ const TeacherForm = () => {
       return;
     }
 
+    const Tutorİnfo = {
+      firstName: name,
+      lastName: surname,
+      subject: subject,
+      telephoneNumber: phone,
+      email: email,
+      image: image,
+      description: description,
+      gender: selectedGender,
+      city: city,
+      user: {
+        username: userName,
+        password: password,
+        authorities: ['ROLE_TUTOR'],
+      },
+    };
+
     try {
       const userResponse = await axios.post(
         'http://localhost:8080/tutor/register',
-        {
-          name,
-          surname,
-          subject,
-          phone,
-          email,
-          image,
-          description,
-          selectedGender,
-          city,
-          user: {
-            userName,
-            password,
-            authorities: ['ROLE_TUTOR'],
-          },
-        }
+        Tutorİnfo
       );
       console.log('Register response:', userResponse.data);
       navigate('/');
@@ -225,31 +226,57 @@ const TeacherForm = () => {
 
 const StudentForm = () => {
   const { setStep } = useContext(Context);
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
-  const [district, setDistrict] = useState('');
+const [selectedGender, setSelectedGender] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleCheckboxChange = (event) => {
+    const gender = event.target.nextSibling.textContent;
+    setSelectedGender(gender.toLowerCase());
+    if (event.target.checked) {
+      setSelectedGender(gender.toLowerCase());
+    } else {
+      setSelectedGender('');
+    }
+  };
+  const Studentİnfo = {
+      firstName: name,
+      lastName: surname,
+      email: email,
+      gender: selectedGender,
+      city: city,
+      user: {
+        username: userName,
+        password: password,
+        authorities: ['ROLE_STUDENT'],
+      },
+    };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Şifreler uyuşmuyor!');
       return;
     }
     // Backend'e veri gönder
-    console.log('Submitted:', {
-      name,
-      surname,
-      email,
-      phone,
-      city,
-      district,
-      password,
-    });
+       try {
+      const userResponse = await axios.post(
+        'http://localhost:8080/student/create',
+        Studentİnfo
+      );
+      console.log('Register response:', userResponse.data);
+      navigate('/');
+    } catch (error) {
+      console.error('Register failed:', error);
+    }
   };
   const handleStep = (step) => {
     setStep(step);
@@ -292,6 +319,43 @@ const StudentForm = () => {
         onChange={(e) => setPhone(e.target.value)}
         required
       />
+      <label htmlFor='username'>Kullanıcı Adını Gir</label>
+      <input
+        type='username'
+        id='username'
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        required
+      />
+      <label>Cinsiyet</label>
+      <div className={styled['radio-container']}>
+        <div className={styled.checkbox}>
+          <input
+            type='checkbox'
+            id='erkek'
+            name='gender'
+            value={'erkek'}
+            checked={selectedGender === 'erkek'}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor='erkek' className={styled['radio-label']}>
+            Erkek
+          </label>
+        </div>
+        <div className={styled.checkbox}>
+          <input
+            type='checkbox'
+            id='kadın'
+            name='gender'
+            value={'kadın'}
+            checked={selectedGender === 'kadın'}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor='kadın' className={styled['radio-label']}>
+            Kadın
+          </label>
+        </div>
+      </div>
 
       <label htmlFor='city'>İl</label>
       <input
@@ -299,15 +363,6 @@ const StudentForm = () => {
         id='city'
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        required
-      />
-
-      <label htmlFor='district'>İlçe</label>
-      <input
-        type='text'
-        id='district'
-        value={district}
-        onChange={(e) => setDistrict(e.target.value)}
         required
       />
 

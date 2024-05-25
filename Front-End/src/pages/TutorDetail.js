@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DUMMY_DATA } from './TutorAdvertisement';
 import Header from '../components/layout/Header';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/Footer';
 import styled from './TutorDetail.module.css';
 
 const TutorDetail = () => {

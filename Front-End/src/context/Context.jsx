@@ -7,10 +7,9 @@ export const Context = createContext();
 export const ContextProvider = ({ children }) => {
   const [step, setStep] = useState(0);
   const [priceRange, setPriceRange] = useState([0, 5000]);
-  const [apiUrl, setApiUrl] = useState('http://localhost:8080');
-
+  const [appointment, setAppointment] = useState(false);
   return (
-    <Context.Provider value={{ step, setStep, priceRange, setPriceRange, apiUrl, setApiUrl }}>
+    <Context.Provider value={{ step, setStep, priceRange, setPriceRange, appointment,setAppointment }}>
       {children}
     </Context.Provider>
   );

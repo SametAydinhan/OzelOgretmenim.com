@@ -25,6 +25,10 @@ public class Student {
     private String firstName;
 
     private String lastName;
+    private String city;
+    private String gender;
+    private String email;
+    private String telephoneNumber;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonBackReference
