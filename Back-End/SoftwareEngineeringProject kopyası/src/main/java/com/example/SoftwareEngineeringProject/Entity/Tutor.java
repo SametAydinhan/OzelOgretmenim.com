@@ -2,6 +2,7 @@ package com.example.SoftwareEngineeringProject.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,11 +46,9 @@ public class Tutor {
     private String telephoneNumber;
 
     @OneToMany(mappedBy = "tutor",cascade = CascadeType.ALL,orphanRemoval = true)
-    @JsonBackReference
     private List<Appointment> appointmentList;
 
     @OneToMany(mappedBy = "tutor",cascade = CascadeType.ALL,orphanRemoval = true)
-    @JsonBackReference
     private List<Notice> noticeList;
 
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)

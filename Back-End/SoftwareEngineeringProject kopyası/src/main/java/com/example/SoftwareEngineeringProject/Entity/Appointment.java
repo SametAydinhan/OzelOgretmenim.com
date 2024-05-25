@@ -29,7 +29,7 @@ public class Appointment {
     private LocalDate appointmentDate;
 
     private boolean isEnabled;
-
+    
     private String subject;
 
     @ManyToOne
