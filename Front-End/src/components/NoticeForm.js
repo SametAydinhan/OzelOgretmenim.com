@@ -4,7 +4,7 @@ import { Context } from '../context/Context';
 import axios from 'axios';
 
 const NoticeForm = () => {
-  const { user,setAppointment } = useContext(Context);
+  const { user, setAppointment } = useContext(Context);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -15,23 +15,15 @@ const NoticeForm = () => {
   };
   const handleAppointment = () => {
     setAppointment(false);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Burada ilan oluşturma işlemleri yapılabilir
     try {
-
-        const storedData = localStorage.getItem('sessionToken');
-       console.log(JSON.parse(storedData));
       const response = await axios.post(
         'http://localhost:8080/notice/create',
-        notice,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(storedData)}`,
-          },
-        }
+        notice
       );
 
       console.log('Notice response:', response.data);

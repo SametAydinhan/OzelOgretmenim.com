@@ -30,10 +30,6 @@ const Login = () => {
         username: username,
         password: password,
       });
-      localStorage.setItem(
-        'sessionToken',
-        response.data.sessionToken
-      );
       setIsLoggedIn(true);
       console.log('Login response:', response.data);
       navigate('/');

@@ -13,7 +13,7 @@ const Footer = () => {
           <h3>ŞİRKET PROFİLİ</h3>
           <ul>
             <li>
-              <i class='fa-solid fa-angle-right'></i>
+              <i className='fa-solid fa-angle-right'></i>
               <Link to='/about-us'>Hakkımızda</Link>
             </li>
           </ul>
@@ -22,19 +22,19 @@ const Footer = () => {
           <h3>ÖZEL DERS İŞLEMLERİ</h3>
           <ul>
             <li>
-              <i class='fa-solid fa-angle-right'></i>
+              <i className='fa-solid fa-angle-right'></i>
               <a href='#'>Özel Ders Talepleri</a>
             </li>
             <li>
-              <i class='fa-solid fa-angle-right'></i>
+              <i className='fa-solid fa-angle-right'></i>
               <a href='#'>Özel Ders Vermek</a>
             </li>
             <li>
-              <i class='fa-solid fa-angle-right'></i>
+              <i className='fa-solid fa-angle-right'></i>
               <a href='#'>Özel Ders Almak İsteyenler</a>
             </li>
             <li>
-              <i class='fa-solid fa-angle-right'></i>
+              <i className='fa-solid fa-angle-right'></i>
               <a href='#'>Özel Ders Vermeye Başla</a>
             </li>
           </ul>
@@ -43,11 +43,11 @@ const Footer = () => {
           <h3>HESAP İŞLEMLERİ</h3>
           <ul>
             <li>
-              <i class='fa-solid fa-angle-right'></i>
+              <i className='fa-solid fa-angle-right'></i>
               <Link to='/login'>Giriş Yap</Link>
             </li>
             <li>
-              <i class='fa-solid fa-angle-right'></i>
+              <i className='fa-solid fa-angle-right'></i>
               <Link
                 to='/signup'
                 onClick={() => {
