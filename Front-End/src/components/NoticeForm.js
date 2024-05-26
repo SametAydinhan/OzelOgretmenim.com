@@ -4,28 +4,37 @@ import { Context } from '../context/Context';
 import axios from 'axios';
 
 const NoticeForm = () => {
+  const { user,setAppointment } = useContext(Context);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const { setAppointment, appointment } = useContext(Context);
   const notice = {
     title: title,
     description: description,
     price: price,
-    
   };
-  const handleSubmit = (e) => {
+  const handleAppointment = () => {
+    setAppointment(false);
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Burada ilan oluşturma işlemleri yapılabilir
     try {
-      const response = axios.post(
+
+        const storedData = localStorage.getItem('sessionToken');
+       console.log(JSON.parse(storedData));
+      const response = await axios.post(
         'http://localhost:8080/notice/create',
         notice,
-
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(storedData)}`,
+          },
+        }
       );
+
       console.log('Notice response:', response.data);
-      setAppointment(!appointment);
-      console.log('Appointment:', appointment);
     } catch (error) {
       console.error('Appointment failed:', error);
     }
@@ -68,9 +77,14 @@ const NoticeForm = () => {
             required
           />
         </div>
-        <button type='submit' className={styled['submit-btn']}>
-          Gönder
-        </button>
+        <div className={styled['btn-container']}>
+          <button type='submit' className={styled['submit-btn']}>
+            Gönder
+          </button>
+          <button onClick={handleAppointment} className={styled['submit-btn']}>
+            Geri Dön
+          </button>
+        </div>
       </form>
     </div>
   );
