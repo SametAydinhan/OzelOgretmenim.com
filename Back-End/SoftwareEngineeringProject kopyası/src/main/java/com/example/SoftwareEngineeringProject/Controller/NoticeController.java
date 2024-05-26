@@ -9,8 +9,11 @@ import com.example.SoftwareEngineeringProject.Repository.UserRepository;
 import com.example.SoftwareEngineeringProject.Service.NoticeService;
 import com.example.SoftwareEngineeringProject.Service.UserService;
 import com.example.SoftwareEngineeringProject.Exception.IdNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,22 +44,33 @@ public class NoticeController {
 
 
     @PostMapping("/create")
-    public Notice createNoticeForLoggedInUser(@RequestBody Notice notice) throws IdNotFoundException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+    public Notice createNoticeForLoggedInUser(HttpServletRequest request, @RequestBody Notice notice) throws IdNotFoundException {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            throw new RuntimeException("No active session");
+        }
 
+        SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+        if (securityContext == null) {
+            throw new RuntimeException("Security context not found in session");
+        }
 
-        Optional<Tutor> tutor = tutorRepository.findTutorByUserId(user.getId());
+        Authentication authentication = securityContext.getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("User is not authenticated");
+        }
 
-        if(tutor.isPresent()) {
-            Tutor tempTutor = tutor.get();
-            int tutorId = tempTutor.getId();
+        String loggedInUsername = authentication.getName();
+        Optional<Tutor> tutor = tutorRepository.findByUser_Username(loggedInUsername);
+        if (tutor.isPresent()) {
+            Tutor tempUser = tutor.get();
+            int tutorId = tempUser.getId();
             return noticeService.createNotice(notice, tutorId);
         }
-        else {
-            throw new IdNotFoundException("Id Not ");
-        }
+
+        throw new IdNotFoundException("Tutor not found for the logged-in user");
     }
+
 
 
 
