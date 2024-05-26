@@ -13,12 +13,13 @@ import axios from 'axios';
 
 const Home = () => {
     const navigate = useNavigate();
-    const {lessons,setLessons} = useContext(Context);
+    const {lessons,setLessons,setAppointment} = useContext(Context);
     const handleLesson = (e) => {
         setLessons(e.target.value);
     }
     const filterLesson =  () => {
         navigate("/tutor-advertisements");
+        setAppointment(false);
     }
 
     const tutorAdvertisementPage = () => {

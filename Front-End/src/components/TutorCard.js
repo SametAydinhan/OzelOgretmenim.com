@@ -16,11 +16,11 @@ const TutorCard = ({tutors}) => {
         <div className={styled.description}>
           <h3 className={styled.title}>{tutor.name}</h3>
           <p>
-            <i class='fa-solid fa-location-dot'></i>
+            <i className='fa-solid fa-location-dot'></i>
             {tutor.city}
           </p>
           <p>
-            <i class='fa-solid fa-graduation-cap'></i>
+            <i className='fa-solid fa-graduation-cap'></i>
             {tutor.subject}
           </p>
           <h4 className={styled.title}>{tutor.title}</h4>
