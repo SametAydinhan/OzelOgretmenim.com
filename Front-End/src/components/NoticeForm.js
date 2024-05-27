@@ -14,6 +14,30 @@ const NoticeForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+<<<<<<< HEAD
+  const { setAppointment, appointment } = useContext(Context);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const notice = {
+      title: title,
+      description: description,
+      price: price,
+    };
+
+    // Ilan oluşturma işlemleri
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/notice/create',
+        notice
+      );
+      console.log('Notice response:', response.data);
+      setAppointment(!appointment);
+      console.log('Appointment:', appointment);
+    } catch (error) {
+      console.error('Appointment failed:', error.response.data);
+    }
+=======
   const notice = {
     title: title,
     description: description,
@@ -56,7 +80,9 @@ const NoticeForm = () => {
     // } catch (error) {
     //   console.error('Appointment failed:', error);
     // }
+>>>>>>> refs/remotes/origin/main
   };
+
   return (
     <div className={styled['main-container']} onSubmit={handleSubmit}>
       <form className={styled['form-container']}>

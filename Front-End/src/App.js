@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Routes,
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Routes,
 } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -18,6 +18,29 @@ import ScrollToTop from './components/ScrollTop';
 import EditProfile from './pages/EditProfile';
 
 function App() {
+<<<<<<< HEAD
+    return (
+        <ContextProvider>
+            <Router>
+                <ScrollToTop />
+                <Routes>
+                    <Route path='/' element={<Home />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/signup' element={<Signup />} />
+                    <Route path='/about-us' element={<AboutUs />} />
+                    <Route
+                        path='/tutor-advertisements'
+                        element={<TutorAdvertisement />}
+                    />
+                    <Route path='/tutor-advertisements/:id' element={<TutorDetail />} />
+                    {/* <Route path='/tutor-advertisements/:id/message' element={<MessagePage />} /> */}
+                    <Route path='/edit-profile' element={<EditProfile />} />
+                    <Route path='*' element={<h1>Not Found</h1>} />
+                </Routes>
+            </Router>
+        </ContextProvider>
+    );
+=======
   return (
     <ContextProvider>
       <Router>
@@ -39,6 +62,7 @@ function App() {
       </Router>
     </ContextProvider>
   );
+>>>>>>> refs/remotes/origin/main
 }
 
 export default App;
