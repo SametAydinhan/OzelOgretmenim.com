@@ -3,10 +3,18 @@ import styled from './NoticeForm.module.css';
 import { Context } from '../context/Context';
 import axios from 'axios';
 
+function getBasicAuthHeader(username, password) {
+  const credentials = `${username}:${password}`;
+  const encodedCredentials = btoa(credentials); // btoa() encodes to base64
+  return `Basic ${encodedCredentials}`;
+}
+
 const NoticeForm = () => {
+  const { user, setAppointment } = useContext(Context);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+<<<<<<< HEAD
   const { setAppointment, appointment } = useContext(Context);
 
   const handleSubmit = async (e) => {
@@ -29,6 +37,53 @@ const NoticeForm = () => {
     } catch (error) {
       console.error('Appointment failed:', error.response.data);
     }
+=======
+  const notice = {
+    title: title,
+    description: description,
+    price: price,
+  };
+  const handleAppointment = () => {
+    setAppointment(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Burada ilan oluşturma işlemleri yapılabilir
+
+    const headers = {
+        'Authorization': getBasicAuthHeader(user.username, user.password),
+        'Content-Type': 'application/json',
+      };
+    axios.post('http://localhost:8080/notice/create',
+        notice,
+        {
+          headers: headers
+        }
+      ).then(response => {
+        console.log('Notice response:', response.data);
+      }).catch(error => {
+        console.error('Notice failed:', error);
+      })
+
+    // try {
+    //   const headers = {
+    //     'Authorization': getBasicAuthHeader(username, password),
+    //     'Content-Type': 'application/json',
+    //   };
+    //   const response = await axios.post(
+    //     'http://localhost:8080/notice/create',
+    //     notice,
+    //     {
+    //       headers: headers,
+    //     }
+    //   );
+
+    //   console.log('Notice response:', response.data);
+    // } catch (error) {
+    //   console.error('Appointment failed:', error);
+    // }
+>>>>>>> refs/remotes/origin/main
   };
 
   return (
@@ -69,9 +124,14 @@ const NoticeForm = () => {
             required
           />
         </div>
-        <button type='submit' className={styled['submit-btn']}>
-          Gönder
-        </button>
+        <div className={styled['btn-container']}>
+          <button type='submit' className={styled['submit-btn']}>
+            Gönder
+          </button>
+          <button onClick={handleAppointment} className={styled['submit-btn']}>
+            Geri Dön
+          </button>
+        </div>
       </form>
     </div>
   );

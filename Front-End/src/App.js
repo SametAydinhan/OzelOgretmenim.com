@@ -18,6 +18,7 @@ import ScrollToTop from './components/ScrollTop';
 import EditProfile from './pages/EditProfile';
 
 function App() {
+<<<<<<< HEAD
     return (
         <ContextProvider>
             <Router>
@@ -39,6 +40,29 @@ function App() {
             </Router>
         </ContextProvider>
     );
+=======
+  return (
+    <ContextProvider>
+      <Router>
+        <ScrollToTop/>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/about-us' element={<AboutUs />} />
+          <Route
+            path='/tutor-advertisements'
+            element={<TutorAdvertisement />}
+          />
+            <Route path='/tutor-advertisements/:id' element={<TutorDetail />} />
+            {/* <Route path='/tutor-advertisements/:id/message' element={<MessagePage />} /> */}
+            <Route path='/edit-profile' element={<EditProfile />}/>
+          <Route path='*' element={<h1>Not Found</h1>} />
+        </Routes>
+      </Router>
+    </ContextProvider>
+  );
+>>>>>>> refs/remotes/origin/main
 }
 
 export default App;

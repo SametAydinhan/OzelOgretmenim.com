@@ -178,3 +178,10 @@
   transition: 0.3s ease;
   margin-right: 10px;
 }
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}

@@ -5,17 +5,19 @@ import { Link } from 'react-router-dom';
 import { Context } from '../../../context/Context';
 import { useContext } from 'react';
 
-
-
 const Header = () => {
-    const { setStep,setIsLoggedIn,setUser,isLoggedIn,user } = useContext(Context);
-    const handleStep = (step) => {
-        setStep(step);
-    };
-    const handleLoggedIn = () => {
-        setIsLoggedIn(false);
-        setUser(null);
+  const { setStep, setIsLoggedIn, setUser, isLoggedIn, user ,setAppointment  } =
+    useContext(Context);
+    const handleAppointment = () => {
+        setAppointment(false);
     }
+  const handleStep = (step) => {
+    setStep(step);
+  };
+  const handleLoggedIn = () => {
+    setIsLoggedIn(false);
+    setUser(null);
+  };
 
   return (
     <nav className={styled.navbar}>
@@ -30,7 +32,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link className={styled.link} to='/tutor-advertisements'>
+            <Link onClick={handleAppointment} className={styled.link} to='/tutor-advertisements'>
               İlanlar
             </Link>
           </li>
@@ -42,11 +44,14 @@ const Header = () => {
         </ul>
       </div>
       {isLoggedIn ? (
-      <div className={styled['right-side']}>
-        <Link to='/edit-profile'>{user.userName}</Link>
-        <Button onClick={handleLoggedIn} styled={{backgroundColor: 'red',
-            marginLeft: '10px',
-        }}>Çıkış Yap</Button>
+        <div className={styled['right-side']}>
+          <Link to='/edit-profile'>{user.username}</Link>
+          <Button
+            onClick={handleLoggedIn}
+            styled={{ backgroundColor: 'red', marginLeft: '10px' }}
+          >
+            Çıkış Yap
+          </Button>
         </div>
       ) : (
         <div className={styled['right-side']}>
