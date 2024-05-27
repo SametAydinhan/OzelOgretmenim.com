@@ -2,12 +2,11 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DUMMY_DATA } from './TutorAdvertisement';
 import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer/Footer';
+import Footer from '../components/layout/footer/footer';
 import styled from './TutorDetail.module.css';
 
 const TutorDetail = () => {
-    const { id } = useParams();
-    const tutor = DUMMY_DATA.find((tutor) => tutor.id === parseInt(id));
+    const tutor = DUMMY_DATA.find((tutor) => tutor.id === parseInt(tutor.id));
     if (!tutor) {
         return <h2>Öğretmen Bulunumadı!!!</h2>;
     }

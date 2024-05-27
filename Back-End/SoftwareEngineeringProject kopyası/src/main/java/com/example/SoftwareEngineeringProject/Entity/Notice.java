@@ -25,11 +25,11 @@ public class Notice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private double price;
+    private String title;
 
     private String description;
 
-    private String title;
+    private String price;
 
 
     @ManyToOne

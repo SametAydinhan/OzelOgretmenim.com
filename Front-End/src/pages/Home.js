@@ -1,9 +1,9 @@
-import React, {useState,useEffect,useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import Footer from '../components/layout/Footer/Footer';
+import Footer from '../components/layout/footer/footer';
 import { Context } from '../context/Context';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,11 +13,11 @@ import axios from 'axios';
 
 const Home = () => {
     const navigate = useNavigate();
-    const {lessons,setLessons} = useContext(Context);
+    const { lessons, setLessons } = useContext(Context);
     const handleLesson = (e) => {
         setLessons(e.target.value);
     }
-    const filterLesson =  () => {
+    const filterLesson = () => {
         navigate("/tutor-advertisements");
     }
 
@@ -47,7 +47,7 @@ const Home = () => {
                                 </li>
                             </ul>
                             <div className='searchbar-container'>
-                                <input type='text' placeholder='Hangi dersi almak istersin?' value={lessons} onChange={handleLesson}/>
+                                <input type='text' placeholder='Hangi dersi almak istersin?' value={lessons} onChange={handleLesson} />
                                 <Button
                                     onClick={filterLesson}
                                     styled={{
