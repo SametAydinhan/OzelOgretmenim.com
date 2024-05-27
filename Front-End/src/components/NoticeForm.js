@@ -10,7 +10,7 @@ function getBasicAuthHeader(username, password) {
 }
 
 const NoticeForm = () => {
-  const { user, setAppointment } = useContext(Context);
+  const { user, setAppointment, headers } = useContext(Context);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -27,10 +27,7 @@ const NoticeForm = () => {
     e.preventDefault();
     // Burada ilan oluşturma işlemleri yapılabilir
 
-    const headers = {
-        'Authorization': getBasicAuthHeader(user.username, user.password),
-        'Content-Type': 'application/json',
-      };
+
     axios.post('http://localhost:8080/notice/create',
         notice,
         {
