@@ -3,6 +3,12 @@ import styled from './NoticeForm.module.css';
 import { Context } from '../context/Context';
 import axios from 'axios';
 
+function getBasicAuthHeader(username, password) {
+  const credentials = `${username}:${password}`;
+  const encodedCredentials = btoa(credentials); // btoa() encodes to base64
+  return `Basic ${encodedCredentials}`;
+}
+
 const NoticeForm = () => {
   const { user, setAppointment } = useContext(Context);
   const [title, setTitle] = useState('');
@@ -20,16 +26,39 @@ const NoticeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Burada ilan oluşturma işlemleri yapılabilir
-    try {
-      const response = await axios.post(
-        'http://localhost:8080/notice/create',
-        notice
-      );
 
-      console.log('Notice response:', response.data);
-    } catch (error) {
-      console.error('Appointment failed:', error);
-    }
+    const headers = {
+        'Authorization': getBasicAuthHeader(user.username, user.password),
+        'Content-Type': 'application/json',
+      };
+    axios.post('http://localhost:8080/notice/create',
+        notice,
+        {
+          headers: headers
+        }
+      ).then(response => {
+        console.log('Notice response:', response.data);
+      }).catch(error => {
+        console.error('Notice failed:', error);
+      })
+
+    // try {
+    //   const headers = {
+    //     'Authorization': getBasicAuthHeader(username, password),
+    //     'Content-Type': 'application/json',
+    //   };
+    //   const response = await axios.post(
+    //     'http://localhost:8080/notice/create',
+    //     notice,
+    //     {
+    //       headers: headers,
+    //     }
+    //   );
+
+    //   console.log('Notice response:', response.data);
+    // } catch (error) {
+    //   console.error('Appointment failed:', error);
+    // }
   };
   return (
     <div className={styled['main-container']} onSubmit={handleSubmit}>
