@@ -4,16 +4,43 @@ import styled from './header.module.css';
 import { Link } from 'react-router-dom';
 import { Context } from '../../../context/Context';
 import { useContext } from 'react';
+import axios from 'axios';
 
 const Header = () => {
-  const { setStep, setIsLoggedIn, isLoggedIn, user , setUser ,setAppointment  } =
-    useContext(Context);
-    const handleAppointment = () => {
-        setAppointment(false);
-    }
-  const handleLoggedIn = () => {
-      setIsLoggedIn(false);
-      setUser(null);
+  const {
+    setStep,
+    setIsLoggedIn,
+    isLoggedIn,
+    user,
+    setUser,
+    setAppointment,
+    getBasicAuthHeader,
+  } = useContext(Context);
+  const handleAppointment = () => {
+    setAppointment(false);
+  };
+  const handleLoggedIn = async () => {
+    const headers = {
+      Authorization: getBasicAuthHeader(user.username, user.password),
+      'Content-Type': 'application/json',
+    };
+
+    await axios
+      .post('http://localhost:8080/user/logout', {
+        headers: headers,
+      })
+      .then((response) => {
+        console.log('Notice response:', response.data);
+      })
+      .catch((error) => {
+        console.error('Notice failed:', error);
+      });
+      setUser({
+        username: '',
+        password: '',
+        authorities: [],
+      });
+    setIsLoggedIn(false);
   };
 
   return (
@@ -29,7 +56,11 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link onClick={handleAppointment} className={styled.link} to='/tutor-advertisements'>
+            <Link
+              onClick={handleAppointment}
+              className={styled.link}
+              to='/tutor-advertisements'
+            >
               İlanlar
             </Link>
           </li>
@@ -43,12 +74,7 @@ const Header = () => {
       {isLoggedIn ? (
         <div className={styled['right-side']}>
           <Link to='/edit-profile'>{user.username}</Link>
-          <button
-            onClick={
-                handleLoggedIn
-            }
-            className={styled['logout-button']}
-          >
+          <button onClick={handleLoggedIn} className={styled['logout-button']}>
             Çıkış Yap
           </button>
         </div>
