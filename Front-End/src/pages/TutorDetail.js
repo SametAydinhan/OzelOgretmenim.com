@@ -1,25 +1,13 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect,useContext} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/footer';
 import styled from './TutorDetail.module.css';
-import axios from 'axios';
-
+import { Context } from '../context/Context';
 const TutorDetail = () => {
-    const [notices, setNotices] = useState([]);
+    const { notices,setNotices } = useContext(Context);
   const { id } = useParams();
-      useEffect (() => {
-        const fetchNotices = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/notice');
-                setNotices(response.data);
-            }catch (error) {
-                console.error('Notices fetch failed:', error);
-            }
- }
 
-        fetchNotices();
-}, []);
   const notice = notices.find((tutor) => tutor.id === parseInt(id));
   if (!notice) {
     return <h2>Öğretmen Bulunumadı!!!</h2>;

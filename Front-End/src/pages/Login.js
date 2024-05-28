@@ -5,7 +5,8 @@ import { Context } from '../context/Context';
 import axios from 'axios';
 
 const Login = () => {
-  const { setStep, setUser, setIsLoggedIn } = useContext(Context);
+  const { setStep, setUser, setIsLoggedIn} =
+    useContext(Context);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -26,11 +27,14 @@ const Login = () => {
         username,
         password,
       });
-      console.log(response.data);
       setUser({
         username: username,
         password: password,
+        authorities: 'ROLE_USER',
       });
+
+      console.log('samet', response.data);
+
       setIsLoggedIn(true);
       console.log('Login response:', response.data);
       navigate('/');

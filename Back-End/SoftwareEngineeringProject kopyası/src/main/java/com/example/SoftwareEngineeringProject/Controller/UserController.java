@@ -66,7 +66,8 @@ public class UserController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
             String role =  authentication.getAuthorities().toString();
-            return ResponseEntity.ok(userDetails.getUsername()+" "+userDetails.getAuthorities().toString());
+
+            return ResponseEntity.ok(userDetails.getUsername()+userDetails.getAuthorities().toString());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }

@@ -4,23 +4,43 @@ import styled from './header.module.css';
 import { Link } from 'react-router-dom';
 import { Context } from '../../../context/Context';
 import { useContext } from 'react';
+import axios from 'axios';
 
 const Header = () => {
-  const { setStep, setIsLoggedIn, setUser, isLoggedIn, user ,setAppointment  } =
-    useContext(Context);
-    const handleAppointment = () => {
-        setAppointment(false);
-    }
-  const handleStep = (step) => {
-    setStep(step);
+  const {
+    setStep,
+    setIsLoggedIn,
+    isLoggedIn,
+    user,
+    setUser,
+    setAppointment,
+    getBasicAuthHeader,
+  } = useContext(Context);
+  const handleAppointment = () => {
+    setAppointment(false);
   };
-  const handleLoggedIn = () => {
-    setIsLoggedIn(false);
-    setUser({
+  const handleLoggedIn = async () => {
+    const headers = {
+      Authorization: getBasicAuthHeader(user.username, user.password),
+      'Content-Type': 'application/json',
+    };
+
+    await axios
+      .post('http://localhost:8080/user/logout', {
+        headers: headers,
+      })
+      .then((response) => {
+        console.log('Notice response:', response.data);
+      })
+      .catch((error) => {
+        console.error('Notice failed:', error);
+      });
+      setUser({
         username: '',
         password: '',
-        authoroties: 'ROLE_USER',
-    });
+        authorities: [],
+      });
+    setIsLoggedIn(false);
   };
 
   return (
@@ -36,7 +56,11 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link onClick={handleAppointment} className={styled.link} to='/tutor-advertisements'>
+            <Link
+              onClick={handleAppointment}
+              className={styled.link}
+              to='/tutor-advertisements'
+            >
               İlanlar
             </Link>
           </li>
@@ -50,12 +74,9 @@ const Header = () => {
       {isLoggedIn ? (
         <div className={styled['right-side']}>
           <Link to='/edit-profile'>{user.username}</Link>
-          <Button
-            onClick={handleLoggedIn}
-            styled={{ backgroundColor: 'red', marginLeft: '10px' }}
-          >
+          <button onClick={handleLoggedIn} className={styled['logout-button']}>
             Çıkış Yap
-          </Button>
+          </button>
         </div>
       ) : (
         <div className={styled['right-side']}>

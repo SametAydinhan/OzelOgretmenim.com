@@ -2,8 +2,8 @@ import React from 'react';
 import styled from './TutorCard.module.css';
 import { Link } from 'react-router-dom';
 
-
 const TutorCard = ({tutors}) => {
+    console.log("tutorcard",tutors);
   return tutors.map((tutor) => (
     <Link key={tutor.id} to={`/tutor-advertisements/${tutor.id}`} className={styled['tutor-card-link']}>
       <div key={tutor.id} className={styled['tutor-card']}>
