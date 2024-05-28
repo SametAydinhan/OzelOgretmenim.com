@@ -6,10 +6,6 @@ import Footer from '../components/layout/Footer/Footer';
 import styled from './TutorDetail.module.css';
 
 const TutorDetail = () => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 046d12e97f3ee2bde98a67a1fd5d7567bfab0c6d
   const { id } = useParams();
   const tutor = DUMMY_DATA.find((tutor) => tutor.id === parseInt(id));
   if (!tutor) {
@@ -37,10 +33,6 @@ const TutorDetail = () => {
                 sequi perspiciatis veniam dolor tempora dolores quidem
                 inventore?
               </p>
-<<<<<<< HEAD
-=======
-
->>>>>>> 046d12e97f3ee2bde98a67a1fd5d7567bfab0c6d
             </div>
             <div className={styled['tutor-description']}>
               <h3>{tutor.subject}</h3>
