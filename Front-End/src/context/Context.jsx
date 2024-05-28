@@ -10,14 +10,16 @@ export const ContextProvider = ({ children }) => {
   const [appointment, setAppointment] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [lessons, setLessons] = useState('');
-  const [user, setUser] = useState(null);
-  const headers = {}
+  const [user, setUser] = useState({
+    username: '',
+    password: '',
+  });
+
+
+
 
 useEffect(() => {
-    headers = {
-        'Authorization': getBasicAuthHeader(user.username, user.password),
-        'Content-Type': 'application/json',
-    };
+
 }, [user]);
 
 
@@ -43,7 +45,7 @@ useEffect(() => {
   };
 
   return (
-    <Context.Provider value={{ step, setStep, headers,  priceRange, setPriceRange, appointment, setAppointment, isLoggedIn, setIsLoggedIn, user, setUser: handleSetUser,lessons,setLessons }}>
+    <Context.Provider value={{ step, setStep,  priceRange, setPriceRange, appointment, setAppointment, isLoggedIn, setIsLoggedIn, user, setUser: handleSetUser,lessons,setLessons }}>
       {children}
     </Context.Provider>
   );
