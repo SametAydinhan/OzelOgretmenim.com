@@ -13,14 +13,15 @@ export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({
     username: '',
     password: '',
+    authoroties: 'ROLE_USER',
   });
 
 
-
-
-useEffect(() => {
-
-}, [user]);
+function getBasicAuthHeader(username, password) {
+  const credentials = `${username}:${password}`;
+  const encodedCredentials = btoa(credentials); // btoa() encodes to base64
+  return `Basic ${encodedCredentials}`;
+}
 
 
   // useEffect ile localStorage'dan kullanıcı bilgisini yükleyin
@@ -45,7 +46,7 @@ useEffect(() => {
   };
 
   return (
-    <Context.Provider value={{ step, setStep,  priceRange, setPriceRange, appointment, setAppointment, isLoggedIn, setIsLoggedIn, user, setUser: handleSetUser,lessons,setLessons }}>
+    <Context.Provider value={{ step, setStep,  priceRange, setPriceRange, appointment, setAppointment, isLoggedIn, setIsLoggedIn, user, setUser: handleSetUser,lessons,setLessons,getBasicAuthHeader }}>
       {children}
     </Context.Provider>
   );

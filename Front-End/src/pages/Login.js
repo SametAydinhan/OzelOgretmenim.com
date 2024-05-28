@@ -26,6 +26,7 @@ const Login = () => {
         username,
         password,
       });
+      console.log(response.data);
       setUser({
         username: username,
         password: password,
