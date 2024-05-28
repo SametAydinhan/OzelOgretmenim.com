@@ -26,11 +26,15 @@ const Login = () => {
         username,
         password,
       });
-      console.log(response.data);
+
+      const userInfoResponse = await axios.get();
+
       setUser({
         username: username,
         password: password,
       });
+      console.log('samet', response.data)
+
       setIsLoggedIn(true);
       console.log('Login response:', response.data);
       navigate('/');

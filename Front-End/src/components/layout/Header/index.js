@@ -6,21 +6,14 @@ import { Context } from '../../../context/Context';
 import { useContext } from 'react';
 
 const Header = () => {
-  const { setStep, setIsLoggedIn, setUser, isLoggedIn, user ,setAppointment  } =
+  const { setStep, setIsLoggedIn, isLoggedIn, user , setUser ,setAppointment  } =
     useContext(Context);
     const handleAppointment = () => {
         setAppointment(false);
     }
-  const handleStep = (step) => {
-    setStep(step);
-  };
   const handleLoggedIn = () => {
-    setIsLoggedIn(false);
-    setUser({
-        username: '',
-        password: '',
-        authoroties: 'ROLE_USER',
-    });
+      setIsLoggedIn(false);
+      setUser(null);
   };
 
   return (
@@ -50,12 +43,14 @@ const Header = () => {
       {isLoggedIn ? (
         <div className={styled['right-side']}>
           <Link to='/edit-profile'>{user.username}</Link>
-          <Button
-            onClick={handleLoggedIn}
-            styled={{ backgroundColor: 'red', marginLeft: '10px' }}
+          <button
+            onClick={
+                handleLoggedIn
+            }
+            className={styled['logout-button']}
           >
             Çıkış Yap
-          </Button>
+          </button>
         </div>
       ) : (
         <div className={styled['right-side']}>

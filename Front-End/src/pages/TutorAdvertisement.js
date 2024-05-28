@@ -134,10 +134,10 @@ const TutorAdvertisement = () => {
 
                                     <MaxMinSlider />
                                     <div className={styled['create-appointment']}>
-                                     {user.authorities === 'ROLE_TUTOR' ?
-                                        (<button onClick={toggleAppointment} className={styled['create-appointment-btn']}>
+
+                                        <button onClick={toggleAppointment} className={styled['create-appointment-btn']}>
                                             İlan oluştur
-                                        </button>):null}
+                                        </button>
                                     </div>
                                 </div>
                                 <div>
