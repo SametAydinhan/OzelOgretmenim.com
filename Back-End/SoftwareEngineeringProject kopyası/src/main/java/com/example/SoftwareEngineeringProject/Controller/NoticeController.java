@@ -32,7 +32,7 @@ public class NoticeController {
     private final UserRepository userRepository;
 
 
-    
+
     public NoticeController(NoticeService noticeService, UserService userService, TutorRepository tutorRepository, UserRepository userRepository) {
         this.noticeService = noticeService;
         this.userService = userService;

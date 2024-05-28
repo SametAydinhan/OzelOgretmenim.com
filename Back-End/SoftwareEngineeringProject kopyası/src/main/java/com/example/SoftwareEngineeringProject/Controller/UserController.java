@@ -67,6 +67,21 @@ public class UserController {
         }
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser() throws IdNotFoundException {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            if(authentication != null){
+                    SecurityContextHolder.clearContext();
+            }
+
+            else {
+                throw new IdNotFoundException("Account Not Logged In");
+            }
+
+            return  ResponseEntity.status(HttpStatus.OK).body("User Logged Out Successfuly");
+
+    }
 
 
 
