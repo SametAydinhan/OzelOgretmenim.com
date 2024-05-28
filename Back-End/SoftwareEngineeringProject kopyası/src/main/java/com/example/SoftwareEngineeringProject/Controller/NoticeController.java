@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/notice")
@@ -42,6 +43,34 @@ public class NoticeController {
     public List<Notice> getAllNotice(){
         return noticeService.getAllNotice();
     }
+
+
+    @GetMapping("/myNotices/{tutorId}")
+    public List<Notice> getNoticeByTutor(@PathVariable int tutorId) throws IdNotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        Optional<Tutor> tutor =tutorRepository.findTutorByUserId(user.getId());
+
+        if(tutor.isPresent()){
+            Tutor theTutor = tutor.get();
+            int tempTutorId = theTutor.getId();
+            List<Notice> notices = noticeService.findNoticeByTutorId(theTutor.getId());
+
+            List<Notice> noticeList = notices.stream()
+                    .filter(notice -> notice.getTutor().getId() == tempTutorId)
+                    .collect(Collectors.toList());
+            if (noticeList.isEmpty()) {
+                throw new IdNotFoundException("No notices found for the given tutor ID.");
+            }
+
+            return  noticeList;
+        }
+        else {
+            throw new RuntimeException("it doesn't work getNoticeByTutor");
+        }
+    }
+
 
 
     @PostMapping("/create")
