@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityRoleRequestService {
 
-    public String getUserAuthorities(){
+    public User getUserAuthorities(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        String role = authentication.getAuthorities().toString();
-        return  role;
+        return user;
     }
 
 

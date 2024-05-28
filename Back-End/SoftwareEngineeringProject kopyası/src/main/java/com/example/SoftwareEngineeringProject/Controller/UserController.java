@@ -1,5 +1,6 @@
 package com.example.SoftwareEngineeringProject.Controller;
 
+import com.example.SoftwareEngineeringProject.Entity.User;
 import com.example.SoftwareEngineeringProject.Exception.IdNotFoundException;
 import com.example.SoftwareEngineeringProject.Repository.UserRepository;
 import com.example.SoftwareEngineeringProject.Request.LoginRequest;
@@ -87,7 +88,10 @@ public class UserController {
 
     }
 
-
+        @GetMapping("/getInfo")
+        public User getUserCredentials(){
+            return securityRoleRequestService.getUserAuthorities();
+        }
 
 
 }
