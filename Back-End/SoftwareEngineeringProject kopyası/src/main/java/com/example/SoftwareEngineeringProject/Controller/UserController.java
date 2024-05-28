@@ -53,29 +53,7 @@ public class UserController {
         this.authenticationManager = authenticationManager;
         this.securityRoleRequestService = securityRoleRequestService;
     }
-
-
-    @GetMapping("/userinfo")
-    public ResponseEntity<?> getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
-        }
-            User user = (User) authentication.getPrincipal();
-
-        Optional<Tutor> tutor = tutorRepository.findTutorByUserId(user.getId());
-        if(tutor.isPresent()){
-            return ResponseEntity.ok(tutor.get());
-        }
-        Optional<Student> student = studentRepository.findStudentByUserId(user.getId());
-        if(student.isPresent()){
-            return ResponseEntity.ok(student.get());
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User role not found");
-    }
-
-
+    
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
@@ -114,6 +92,28 @@ public class UserController {
         public User getUserCredentials(){
             return securityRoleRequestService.getUserAuthorities();
         }
+
+
+
+    @GetMapping("/userinfo")
+    public ResponseEntity<?> getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+        }
+        User user = (User) authentication.getPrincipal();
+
+        Optional<Tutor> tutor = tutorRepository.findTutorByUserId(user.getId());
+        if(tutor.isPresent()){
+            return ResponseEntity.ok(tutor.get());
+        }
+        Optional<Student> student = studentRepository.findStudentByUserId(user.getId());
+        if(student.isPresent()){
+            return ResponseEntity.ok(student.get());
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User role not found");
+    }
 
 
 }
