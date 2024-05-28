@@ -16,7 +16,11 @@ const Header = () => {
   };
   const handleLoggedIn = () => {
     setIsLoggedIn(false);
-    setUser(null);
+    setUser({
+        username: '',
+        password: '',
+        authoroties: 'ROLE_USER',
+    });
   };
 
   return (

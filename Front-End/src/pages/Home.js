@@ -7,7 +7,6 @@ import Footer from '../components/layout/Footer/Footer';
 import { Context } from '../context/Context';
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
 
 
 
