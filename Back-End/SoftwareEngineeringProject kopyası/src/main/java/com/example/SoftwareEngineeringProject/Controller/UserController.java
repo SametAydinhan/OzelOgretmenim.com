@@ -1,9 +1,9 @@
 package com.example.SoftwareEngineeringProject.Controller;
 
-import com.example.SoftwareEngineeringProject.Entity.User;
 import com.example.SoftwareEngineeringProject.Exception.IdNotFoundException;
 import com.example.SoftwareEngineeringProject.Repository.UserRepository;
 import com.example.SoftwareEngineeringProject.Request.LoginRequest;
+import com.example.SoftwareEngineeringProject.Service.SecurityRoleRequestService;
 import com.example.SoftwareEngineeringProject.Service.SecurityUser;
 import com.example.SoftwareEngineeringProject.Service.UserService;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,12 +30,15 @@ public class UserController {
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
 
-    public UserController(UserService userService, UserRepository userRepository, SecurityUser securityUser, UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+    private final SecurityRoleRequestService securityRoleRequestService;
+
+    public UserController(UserService userService, UserRepository userRepository, SecurityUser securityUser, UserDetailsService userDetailsService, AuthenticationManager authenticationManager, SecurityRoleRequestService securityRoleRequestService) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.securityUser = securityUser;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
+        this.securityRoleRequestService = securityRoleRequestService;
     }
 
 
@@ -61,7 +63,10 @@ public class UserController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            return ResponseEntity.ok(userDetails.getUsername());
+
+            String role =  authentication.getAuthorities().toString();
+
+            return ResponseEntity.ok(userDetails.getUsername()+" - Role : "+ role);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
@@ -82,6 +87,7 @@ public class UserController {
             return  ResponseEntity.status(HttpStatus.OK).body("User Logged Out Successfuly");
 
     }
+
 
 
 
