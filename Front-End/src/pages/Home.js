@@ -3,7 +3,7 @@ import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/Footer';
 import { Context } from '../context/Context';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,8 +13,7 @@ import axios from 'axios';
 
 const Home = () => {
     const navigate = useNavigate();
-
-    const {lessons,setLessons,setAppointment} = useContext(Context);
+    const { lessons, setLessons,setAppointment } = useContext(Context);
     const handleLesson = (e) => {
         setLessons(e.target.value);
     }

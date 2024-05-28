@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Header from '../components/layout/Header';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/Footer';
 import styled from './TutorAdvertisement.module.css';
 import MaxMinSlider from '../components/common/MaxMinSlider/MaxMinSlider';
 import TutorCard from '../components/TutorCard';

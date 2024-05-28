@@ -3,14 +3,9 @@ import styled from './NoticeForm.module.css';
 import { Context } from '../context/Context';
 import axios from 'axios';
 
-function getBasicAuthHeader(username, password) {
-  const credentials = `${username}:${password}`;
-  const encodedCredentials = btoa(credentials); // btoa() encodes to base64
-  return `Basic ${encodedCredentials}`;
-}
 
 const NoticeForm = () => {
-  const { user, setAppointment } = useContext(Context);
+  const {  setAppointment, user } = useContext(Context);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -19,6 +14,11 @@ const NoticeForm = () => {
     description: description,
     price: price,
   };
+    function getBasicAuthHeader(username, password) {
+  const credentials = `${username}:${password}`;
+  const encodedCredentials = btoa(credentials); // btoa() encodes to base64
+  return `Basic ${encodedCredentials}`;
+}
   const handleAppointment = () => {
     setAppointment(false);
   };
@@ -26,12 +26,13 @@ const NoticeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Burada ilan oluşturma işlemleri yapılabilir
-
     const headers = {
         'Authorization': getBasicAuthHeader(user.username, user.password),
         'Content-Type': 'application/json',
-      };
-    axios.post('http://localhost:8080/notice/create',
+    };
+
+
+    await axios.post('http://localhost:8080/notice/create',
         notice,
         {
           headers: headers
@@ -42,23 +43,8 @@ const NoticeForm = () => {
         console.error('Notice failed:', error);
       })
 
-    // try {
-    //   const headers = {
-    //     'Authorization': getBasicAuthHeader(username, password),
-    //     'Content-Type': 'application/json',
-    //   };
-    //   const response = await axios.post(
-    //     'http://localhost:8080/notice/create',
-    //     notice,
-    //     {
-    //       headers: headers,
-    //     }
-    //   );
+    setAppointment(false);
 
-    //   console.log('Notice response:', response.data);
-    // } catch (error) {
-    //   console.error('Appointment failed:', error);
-    // }
   };
 
   return (
