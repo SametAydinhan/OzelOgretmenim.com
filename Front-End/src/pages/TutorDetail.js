@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer/Footer';
+import Footer from '../components/layout/footer/footer';
 import styled from './TutorDetail.module.css';
 import axios from 'axios';
 
