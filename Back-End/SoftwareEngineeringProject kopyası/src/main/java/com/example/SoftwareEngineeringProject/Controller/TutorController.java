@@ -2,14 +2,18 @@ package com.example.SoftwareEngineeringProject.Controller;
 
 import com.example.SoftwareEngineeringProject.Entity.Tutor;
 import com.example.SoftwareEngineeringProject.Entity.User;
-import com.example.SoftwareEngineeringProject.Request.LoginRequest;
+import com.example.SoftwareEngineeringProject.Repository.NoticeRepository;
+import com.example.SoftwareEngineeringProject.Repository.TutorRepository;
 import com.example.SoftwareEngineeringProject.Service.TutorService;
 import com.example.SoftwareEngineeringProject.Service.UserService;
 import com.example.SoftwareEngineeringProject.Exception.IdNotFoundException;
-import org.springframework.security.access.prepost.PreAuthorize;
+import jakarta.transaction.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/tutor")
@@ -18,13 +22,18 @@ public class TutorController {
         private final TutorService tutorService;
         private final UserService userService;
 
-    public TutorController(TutorService tutorService, UserService userService) {
+        private final TutorRepository tutorRepository;
+
+        private final NoticeRepository noticeRepository;
+
+    public TutorController(TutorService tutorService, UserService userService, TutorRepository tutorRepository, NoticeRepository noticeRepository) {
         this.tutorService = tutorService;
         this.userService = userService;
+        this.tutorRepository = tutorRepository;
+        this.noticeRepository = noticeRepository;
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<Tutor> getAllTutor(){
         return tutorService.getAllTutor();
@@ -41,17 +50,51 @@ public class TutorController {
     }
 
 
-    @PreAuthorize("(hasRole('ROLE_TUTOR') and #tutorId == principal.id)  or hasRole('ROLE_ADMIN')")
     @PutMapping("/update/{tutorId}")
-    public Tutor updateTutor(@PathVariable int tutorId,@RequestBody Tutor tutor) throws IdNotFoundException {
-        return tutorService.updateTutor(tutorId,tutor);
+    public Tutor updateTutor(@PathVariable int tutorId, @RequestBody Tutor tutor) throws IdNotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        Optional<Tutor> tempTutor = tutorRepository.findTutorByUserId(user.getId());
+
+        if (tempTutor.isPresent()) {
+            Tutor existingTutor = tempTutor.get();
+            if (existingTutor.getId() == tutorId) {
+                tutor.setId(existingTutor.getId()); // Ensure the ID matches
+                return tutorService.updateTutor(tutorId, tutor);
+            } else {
+                throw new IdNotFoundException("Tutor Found but not updated");
+            }
+        } else {
+            throw new IdNotFoundException("Tutor Not Found");
+        }
     }
 
 
-    @PreAuthorize("(hasRole('ROLE_TUTOR') and #tutorId == principal.id)  or hasRole('ROLE_ADMIN')")
+    @Transactional
     @DeleteMapping("/delete/{tutorId}")
     public void deleteTutors(@PathVariable int tutorId) throws IdNotFoundException {
-        tutorService.deleteTutor(tutorId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+
+        Optional<Tutor> tempTutor = tutorRepository.findTutorByUserId(user.getId());
+        if(tempTutor.isPresent()){
+            Tutor existenceTutor = tempTutor.get();
+            if(existenceTutor.getId() == tutorId){
+
+                noticeRepository.deleteByTutorId(tutorId);
+                tutorRepository.deleteById(tutorId);
+            }
+
+            else {
+                throw new IdNotFoundException("Tutor Found But Not Deleted");
+            }
+        }
+
+        else {
+            throw new IdNotFoundException("Tutor Not Found");
+        }
     }
 
 
