@@ -12,10 +12,7 @@ export const ContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [lessons, setLessons] = useState('');
   const [userDetail, setUserDetail] = useState({});//[1]
-  const [user, setUser] = useState({
-    username: '',
-    password: '',
-  });
+  const [user, setUser] = useState();
   const [notices, setNotices] = useState([]);
 
   function getBasicAuthHeader(username, password) {
@@ -44,7 +41,7 @@ export const ContextProvider = ({ children }) => {
           headers: headers,
         });
         console.log("benim logum",response.data);
-        setUserDetail({
+        setUserDetail(  {
           username: response.data.username,
           password: response.data.password,
           id: response.data.id,

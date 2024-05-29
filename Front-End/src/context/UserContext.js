@@ -21,18 +21,19 @@ useEffect(() => {
           headers: headers,
         });
         console.log("benim logummmmmmm",response.data);
-        if(response.data.user.authorities[0] === 'ROLE_TUTOR'){
+        if(response.data.user.authorities[0] == 'ROLE_TUTOR'){
             setTutorDetail({
-                tutorid: response.data.id,
+                id: response.data.id,
                 firstname: response.data.firstname,
                 lastname: response.data.lastname,
                 email: response.data.email,
                 phone: response.data.phone,
                 city: response.data.city,
             });
+            console.log("tutor",tutorDetail);
         }else {
             setStudentDetail({
-                studentid: response.data.id,
+                id: response.data.id,
                 firstname: response.data.firstname,
                 lastname: response.data.lastname,
                 email: response.data.email,

@@ -3,9 +3,11 @@ import axios from 'axios';
 import { Context } from '../context/Context';
 import { useNavigate } from 'react-router-dom';
 import styled from './EditProfile.module.css';
+import { UserContext } from '../context/UserContext';
 
 const EditProfile = () => {
-  const { user, setUser } = useContext(Context);
+  const { user, setUser,userDetail } = useContext(Context);
+  const {tutorDetail} = useContext(UserContext);
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -21,12 +23,12 @@ const EditProfile = () => {
   const description =
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam porro totam maiores ullam omnis assumenda eos odit, autem deserunt veniam dolore nihil aut a reprehenderit minima voluptate vitae facilis repellendus.';
   const image = '';
-
   useEffect(() => {
     // Kullanıcı bilgilerini back-end'den al ve state'e ata
     const fetchData = async () => {
+        console.log("tutorDetil",tutorDetail);
       try {
-        const response = await axios.get(`http://localhost:8080/tutor/8`);
+        const response = await axios.get(`http://localhost:8080/tutor/${tutorDetail.id}`);
         const data = response.data;
         setName(data.firstName);
         setSurname(data.lastName);
@@ -41,7 +43,7 @@ const EditProfile = () => {
       }
     };
     fetchData();
-  }, [user.username]);
+  }, [tutorDetail]);
 
   const handleCheckboxChange = (event) => {
     const gender = event.target.nextSibling.textContent;
@@ -79,12 +81,8 @@ const EditProfile = () => {
       };
 
       try {
-        const response = await axios.put(`http://localhost:8080/tutor/update/8`, updatedUserInfo);
+        const response = await axios.put(`http://localhost:8080/tutor/update/`, updatedUserInfo);
         console.log('Update response:', response.data);
-        setUser({
-          ...user,
-          username: userName,
-        });
         setIsEditing(false); // Düzenleme modunu kapat
         navigate('/');
       } catch (error) {
@@ -94,6 +92,9 @@ const EditProfile = () => {
       setIsEditing(true); // Düzenleme moduna geç
     }
   };
+  if (!name || !surname || !email || !phone || !city || !subject || !selectedGender) {
+    return <div>Loading...</div>; // Veya herhangi bir yükleme göstergesi
+  }
 
   return (
     <div className={styled.profileContainer}>
@@ -192,10 +193,11 @@ const EditProfile = () => {
         <button type='submit' className={styled.button}>
           {isEditing ? 'Güncelle' : 'Düzenle'}
         </button>
-        <button className={styled.backButton} onClick={() => navigate('/')} disabled={isEditing}>
+        <button className={styled.backButton} onClick={() => navigate('/')} >
           Geri Dön
         </button>
       </form>
+
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useContext} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/footer';
 import styled from './TutorDetail.module.css';
 import { Context } from '../context/Context';
 const TutorDetail = () => {
