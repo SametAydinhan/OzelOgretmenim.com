@@ -17,6 +17,9 @@
     color: #3898f1;
     text-shadow: 0px 4px 4px #a79898;
     cursor: pointer;
+    span {
+        font-size: .7em;
+    }
   }
   ul {
     display: flex;

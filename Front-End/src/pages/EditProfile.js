@@ -4,9 +4,10 @@ import { Context } from '../context/Context';
 import { useNavigate } from 'react-router-dom';
 import styled from './EditProfile.module.css';
 import { UserContext } from '../context/UserContext';
+import NoticeList from '../components/NoticeList';
 
 const EditProfile = () => {
-  const { user, setUser,userDetail } = useContext(Context);
+  const { user, setUser,userDetail, getBasicAuthHeader } = useContext(Context);
   const {tutorDetail} = useContext(UserContext);
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -81,7 +82,15 @@ const EditProfile = () => {
       };
 
       try {
-        const response = await axios.put(`http://localhost:8080/tutor/update/`, updatedUserInfo);
+         const headers = {
+           Authorization: getBasicAuthHeader(user.username, user.password),
+           'Content-Type': 'application/json',
+         };
+        const response = await axios.put(`http://localhost:8080/tutor/update/${tutorDetail.id}`, updatedUserInfo,
+        {
+          headers: headers
+        }
+        );
         console.log('Update response:', response.data);
         setIsEditing(false); // Düzenleme modunu kapat
         navigate('/');
@@ -92,14 +101,16 @@ const EditProfile = () => {
       setIsEditing(true); // Düzenleme moduna geç
     }
   };
-  if (!name || !surname || !email || !phone || !city || !subject || !selectedGender) {
+  if ( !userDetail || !userDetail.authorities) {
     return <div>Loading...</div>; // Veya herhangi bir yükleme göstergesi
   }
 
   return (
+    <div className={styled['main-container']}>
     <div className={styled.profileContainer}>
-      <h1>Profilinizi Düzenleyin</h1>
+      <h1>Profil Sayfası</h1>
       <form className={styled.formContainer} onSubmit={handleSubmit}>
+        <div className={styled['input-container']}>
         <label htmlFor='name'>Adınız</label>
         <input
           type='text'
@@ -108,8 +119,8 @@ const EditProfile = () => {
           onChange={(e) => setName(e.target.value)}
           disabled={!isEditing}
         />
-        <div>{}</div>
-
+        </div>
+        <div className={styled['input-container']}>
         <label htmlFor='surname'>Soyadınız</label>
         <input
           type='text'
@@ -118,7 +129,8 @@ const EditProfile = () => {
           onChange={(e) => setSurname(e.target.value)}
           disabled={!isEditing}
         />
-
+        </div>
+        <div className={styled['input-container']}>
         <label htmlFor='email'>Email Adresiniz</label>
         <input
           type='email'
@@ -127,7 +139,8 @@ const EditProfile = () => {
           onChange={(e) => setEmail(e.target.value)}
           disabled={!isEditing}
         />
-
+        </div>
+        <div className={styled['input-container']}>
         <label htmlFor='phone'>Telefon Numaranız</label>
         <input
           type='tel'
@@ -136,7 +149,8 @@ const EditProfile = () => {
           onChange={(e) => setPhone(e.target.value)}
           disabled={!isEditing}
         />
-
+        </div>
+         <div className={styled['input-container']}>
         <label htmlFor='city'>İl</label>
         <input
           type='text'
@@ -145,9 +159,10 @@ const EditProfile = () => {
           onChange={(e) => setCity(e.target.value)}
           disabled={!isEditing}
         />
+        </div>
 
-        {/* {user.authorities[0] === 'ROLE_TUTOR' && (
-        <div> */}
+         {userDetail.authorities[0] === 'ROLE_TUTOR' && (
+        <div className={styled['input-container']}>
         <label htmlFor='subject'>Ders</label>
         <input
           type='text'
@@ -157,8 +172,8 @@ const EditProfile = () => {
           disabled={!isEditing}
         />
 
-        {/* </div>)} */}
-
+        </div>)}
+        <div className={styled['input-container']}>
         <label>Cinsiyet</label>
         <div className={styled['radio-container']}>
           <div className={styled.checkbox}>
@@ -190,6 +205,7 @@ const EditProfile = () => {
             </label>
           </div>
         </div>
+        </div>
         <button type='submit' className={styled.button}>
           {isEditing ? 'Güncelle' : 'Düzenle'}
         </button>
@@ -197,7 +213,11 @@ const EditProfile = () => {
           Geri Dön
         </button>
       </form>
-
+    </div>
+    <div className={styled['notice-list']}>
+        <h2>İlanlarınız</h2>
+            <NoticeList />
+    </div>
     </div>
   );
 };

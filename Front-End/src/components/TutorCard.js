@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 
 const TutorCard = ({tutors}) => {
     console.log("tutorcard",tutors);
+    const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
+  };
   return tutors.map((tutor) => (
     <Link key={tutor.id} to={`/tutor-advertisements/${tutor.id}`} className={styled['tutor-card-link']}>
       <div key={tutor.id} className={styled['tutor-card']}>
@@ -24,7 +30,7 @@ const TutorCard = ({tutors}) => {
             {tutor.tutor.subject}
           </p>
           <h4 className={styled.title}>{tutor.title}</h4>
-          <p>{tutor.description}</p>
+          <p>{truncateText(tutor.description, 100)}</p>
           <div className={styled['price-container']}>
             {tutor.price}₺<span>/saat</span>
           </div>

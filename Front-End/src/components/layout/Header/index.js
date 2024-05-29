@@ -46,7 +46,7 @@ const Header = () => {
     <nav className={styled.navbar}>
       <div className={styled['left-side']}>
         <Link to='/' className={styled['logo-title']}>
-          Özel Ders
+            Özel Öğretmen<span>.com</span>
         </Link>
         <ul>
           <li>

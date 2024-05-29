@@ -63,3 +63,11 @@
   display: flex;
   flex-direction: column;
 }
+.description p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ /* Adjust height according to line height */
+}
