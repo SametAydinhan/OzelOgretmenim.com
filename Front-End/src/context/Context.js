@@ -14,6 +14,8 @@ export const ContextProvider = ({ children }) => {
   const [userDetail, setUserDetail] = useState({});//[1]
   const [user, setUser] = useState();
   const [notices, setNotices] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
 
   function getBasicAuthHeader(username, password) {
     const credentials = `${username}:${password}`;
@@ -68,22 +70,23 @@ export const ContextProvider = ({ children }) => {
       setIsLoggedIn(false);
     }
   };
+  const fetchNotices = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/notice');
+      setNotices(response.data);
+    } catch (error) {
+      console.error('Notices fetch failed:', error);
+    }
+  };
   useEffect(() => {
-    const fetchNotices = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/notice');
-        setNotices(response.data);
-      } catch (error) {
-        console.error('Notices fetch failed:', error);
-      }
-    };
-
     fetchNotices();
-  }, []);
+  }, [refresh]);
 
   return (
     <Context.Provider
       value={{
+        refresh,
+        setRefresh,
         userDetail,
         setUserDetail,
         step,

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 const NoticeForm = () => {
-  const {  setAppointment, user,getBasicAuthHeader } = useContext(Context);
+  const {  setAppointment, user,getBasicAuthHeader,setRefresh,refresh } = useContext(Context);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -40,7 +40,7 @@ const NoticeForm = () => {
       })
 
     setAppointment(false);
-
+    setRefresh(!refresh);
   };
 
   return (
