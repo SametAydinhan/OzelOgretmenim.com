@@ -35,6 +35,7 @@ public class SoftwareEngineeringProjectApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+			
 	}
 
 	private final UserRepository userRepository;
@@ -42,8 +43,8 @@ public class SoftwareEngineeringProjectApplication implements CommandLineRunner{
 	public void CreateDummyData(){
 
 	User user = User.builder()
-			.username("plspls")
-			.password(passwordEncoder.encode("ol"))
+			.username("sokucu")
+			.password(passwordEncoder.encode("3161"))
 			.authorities(Set.of(Role.ROLE_STUDENT))
 			.isEnabled(true)
 			.accountNonLocked(true)
@@ -52,8 +53,8 @@ public class SoftwareEngineeringProjectApplication implements CommandLineRunner{
 			.build();
 
 			Student student = Student.builder()
-					.firstName("asda")
-					.lastName("asdsad")
+					.firstName("asdsad")
+					.lastName("asdasd")
 					.user(user)
 					.build();
 			studentRepository.save(student);
