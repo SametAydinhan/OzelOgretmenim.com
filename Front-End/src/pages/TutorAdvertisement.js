@@ -44,6 +44,9 @@ const TutorAdvertisement = () => {
         tutor.tutor.subject.toLowerCase().includes(lessons.toLowerCase()))
     );
   });
+   if (!userDetail || !userDetail.authorities) {
+    return <div>Loading...</div>; // Veya herhangi bir yükleme göstergesi
+  }
 
   const toggleAppointment = () => {
     setAppointment(!appointment);
