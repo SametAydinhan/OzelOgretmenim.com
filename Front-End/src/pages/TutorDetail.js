@@ -71,9 +71,12 @@ const TutorDetail = () => {
               <span className={styled['price']}>{notice.price}₺</span>
             </div>
 
-            <button onClick={handleEmailClick} className={styled['send-message-btn']}>
-              <i className='fa-solid fa-comments'></i>
-              Mesaj gönder
+            <button
+              onClick={handleEmailClick}
+              className={styled['send-message-btn']}
+            >
+              <i className='fa-solid fa-envelope'></i>
+              İletişime Geç
             </button>
           </div>
         </div>

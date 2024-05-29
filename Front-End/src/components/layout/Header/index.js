@@ -8,15 +8,19 @@ import axios from 'axios';
 
 const Header = () => {
   const {
+    refresh,
+    setRefresh,
     setStep,
-    setIsLoggedIn,
     isLoggedIn,
+    setIsLoggedIn,
     user,
+    setUserDetail,
     setUser,
     setAppointment,
     getBasicAuthHeader,
   } = useContext(Context);
   const handleAppointment = () => {
+    setRefresh(!refresh);
     setAppointment(false);
   };
   const handleLoggedIn = async () => {
@@ -35,10 +39,16 @@ const Header = () => {
       .catch((error) => {
         console.error('Notice failed:', error);
       });
+      setUserDetail({
+        username: '',
+        password: '',
+        id: '',
+        authorities: [],
+      });
       setUser({
         username: '',
         password: '',
-      });
+      })
     setIsLoggedIn(false);
   };
 
@@ -72,7 +82,7 @@ const Header = () => {
       </div>
       {isLoggedIn ? (
         <div className={styled['right-side']}>
-          <Link to='/edit-profile'>{user.username}</Link>
+          <Link className={styled['user-profile-btn']} to='/edit-profile'>{user.username}</Link>
           <button onClick={handleLoggedIn} className={styled['logout-button']}>
             Çıkış Yap
           </button>
