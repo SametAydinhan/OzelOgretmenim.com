@@ -20,6 +20,6 @@ public interface NoticeRepository extends JpaRepository<Notice,Integer>, JpaSpec
 
         List<Notice> findNoticeByTutorId(int tutorId);
 
-
+        void deleteByTutorId(int tutorId);
 
 }
