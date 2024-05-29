@@ -30,7 +30,6 @@ const Login = () => {
       setUser({
         username: username,
         password: password,
-        authorities: 'ROLE_USER',
       });
 
       console.log('samet', response.data);

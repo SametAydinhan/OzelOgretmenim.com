@@ -11,10 +11,10 @@ export const ContextProvider = ({ children }) => {
   const [appointment, setAppointment] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [lessons, setLessons] = useState('');
+  const [userDetail, setUserDetail] = useState({});//[1]
   const [user, setUser] = useState({
     username: '',
     password: '',
-    authoroties: 'ROLE_USER',
   });
   const [notices, setNotices] = useState([]);
 
@@ -43,11 +43,11 @@ export const ContextProvider = ({ children }) => {
         const response = await axios.get('http://localhost:8080/user/getInfo', {
           headers: headers,
         });
-
-        setUser({
-          id: response.data.id,
+        console.log("benim logum",response.data);
+        setUserDetail({
           username: response.data.username,
           password: response.data.password,
+          id: response.data.id,
           authorities: response.data.authorities,
         });
       } catch (error) {
@@ -59,11 +59,10 @@ export const ContextProvider = ({ children }) => {
       fetchUserInfo();
     }
     console.log('user', user);
-  }, [isLoggedIn, user]);
+  }, [user]);
 
   // Kullanıcı bilgisini güncellerken aynı zamanda localStorage'a kaydedin
   const handleSetUser = (user) => {
-    setUser(user);
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
       setIsLoggedIn(true);
@@ -88,6 +87,8 @@ export const ContextProvider = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        userDetail,
+        setUserDetail,
         step,
         setStep,
         priceRange,

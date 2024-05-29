@@ -38,7 +38,6 @@ const Header = () => {
       setUser({
         username: '',
         password: '',
-        authorities: [],
       });
     setIsLoggedIn(false);
   };

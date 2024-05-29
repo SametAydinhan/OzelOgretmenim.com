@@ -20,6 +20,7 @@ const TutorAdvertisement = () => {
     user,
     notices,
     setNotices,
+    userDetail,
   } = useContext(Context);
 
   const handleCheckboxChange = (event) => {
@@ -120,7 +121,7 @@ const TutorAdvertisement = () => {
 
                   <MaxMinSlider />
                   <div className={styled['create-appointment']}>
-                    {user.authorities[0] == 'ROLE_TUTOR' && (
+                    {userDetail.authorities[0] === 'ROLE_TUTOR' && (
                         <button
                           onClick={toggleAppointment}
                           className={styled['create-appointment-btn']}
