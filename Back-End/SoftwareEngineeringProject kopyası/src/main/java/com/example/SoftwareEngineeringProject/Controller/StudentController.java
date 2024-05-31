@@ -45,7 +45,7 @@ public class StudentController {
 
 
     @GetMapping("/{studentId}")
-    public Student findById(@PathVariable int studentId) throws IdNotFoundException {
+    public Student findById(@PathVariable(name="studentId") int studentId) throws IdNotFoundException {
         return studentService.findById(studentId);
     }
 

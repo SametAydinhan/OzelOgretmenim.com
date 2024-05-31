@@ -35,12 +35,12 @@ const TutorDetail = () => {
             </div>
           </div>
           <div className={styled['right-side']}>
-            <div className={styled['img-container']}>
+            {/* <div className={styled['img-container']}>
               <img
                 src={require('../assests/images/tutor/tutor1.jpg')}
                 alt={notice.tutor.firstName}
               />
-            </div>
+            </div> */}
             <h3>
               {notice.tutor.firstName} {notice.tutor.lastName}
             </h3>

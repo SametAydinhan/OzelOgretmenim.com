@@ -86,6 +86,7 @@
     margin-bottom: 10px;
   }
   .tutor-price {
+    margin: 10px 0 10px 0;
     display: flex;
     width: 100%;
     justify-content: space-between;

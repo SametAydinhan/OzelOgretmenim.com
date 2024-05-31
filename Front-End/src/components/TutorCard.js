@@ -13,12 +13,12 @@ const TutorCard = ({tutors}) => {
   return tutors.map((tutor) => (
     <Link key={tutor.id} to={`/tutor-advertisements/${tutor.id}`} className={styled['tutor-card-link']}>
       <div key={tutor.id} className={styled['tutor-card']}>
-        <div className={styled['tutor-img']}>
+        {/* <div className={styled['tutor-img']}>
           <img
             src={require('../assests/images/tutor/tutor1.jpg')}
             alt='tutor'
           />
-        </div>
+        </div> */}
         <div className={styled.description}>
           <h3 className={styled.title}>{tutor.tutor.firstName} {tutor.tutor.lastName}</h3>
           <p>
@@ -30,7 +30,7 @@ const TutorCard = ({tutors}) => {
             {tutor.tutor.subject}
           </p>
           <h4 className={styled.title}>{tutor.title}</h4>
-          <p>{truncateText(tutor.description, 100)}</p>
+          <p>{truncateText(tutor.description, 150)}</p>
           <div className={styled['price-container']}>
             {tutor.price}₺<span>/saat</span>
           </div>
