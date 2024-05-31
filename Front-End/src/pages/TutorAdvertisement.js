@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Header from '../components/layout/Header';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/footer';
 import styled from './TutorAdvertisement.module.css';
 import MaxMinSlider from '../components/common/MaxMinSlider/MaxMinSlider';
 import TutorCard from '../components/TutorCard';
@@ -20,6 +20,7 @@ const TutorAdvertisement = () => {
     user,
     notices,
     setNotices,
+    userDetail,
   } = useContext(Context);
 
   const handleCheckboxChange = (event) => {
@@ -43,6 +44,9 @@ const TutorAdvertisement = () => {
         tutor.tutor.subject.toLowerCase().includes(lessons.toLowerCase()))
     );
   });
+   if (!userDetail || !userDetail.authorities) {
+    return <div>Loading...</div>; // Veya herhangi bir yükleme göstergesi
+  }
 
   const toggleAppointment = () => {
     setAppointment(!appointment);
@@ -120,7 +124,7 @@ const TutorAdvertisement = () => {
 
                   <MaxMinSlider />
                   <div className={styled['create-appointment']}>
-                    {user.authorities[0] == 'ROLE_TUTOR' && (
+                    {userDetail.authorities[0] === 'ROLE_TUTOR' && (
                         <button
                           onClick={toggleAppointment}
                           className={styled['create-appointment-btn']}

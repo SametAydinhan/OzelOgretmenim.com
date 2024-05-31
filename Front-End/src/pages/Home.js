@@ -3,14 +3,17 @@ import Header from '../components/layout/Header';
 import './Home.css';
 import Button from '../components/common/Button';
 import LessonItems from '../components/common/LessonItems/LessonItems';
-import Footer from '../components/layout/footer/footer';
+import Footer from '../components/layout/Footer/footer';
 import { Context } from '../context/Context';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 
 
 
 const Home = () => {
+    const {tutorDetail, setTutorDetail, studentDetail, setStudentDetail} = useContext(UserContext);
+
     const navigate = useNavigate();
     const { lessons, setLessons,setAppointment } = useContext(Context);
     const handleLesson = (e) => {

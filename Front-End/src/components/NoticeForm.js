@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 const NoticeForm = () => {
-  const {  setAppointment, user,getBasicAuthHeader } = useContext(Context);
+  const {  setAppointment, user,getBasicAuthHeader,setRefresh,refresh } = useContext(Context);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -14,14 +14,6 @@ const NoticeForm = () => {
     description: description,
     price: price,
   };
- const handlePrice = (e) => {
-    const price = e.target.value;
-
-    // Sayı ve ondalık nokta kontrolü
-    if (price === '' || /^[0-9\b]+(\.[0-9\b]{0,2})?$/.test(price)){
-        setPrice(price);
-    }
- }
 
   const handleAppointment = () => {
     setAppointment(false);
@@ -48,7 +40,7 @@ const NoticeForm = () => {
       })
 
     setAppointment(false);
-
+    setRefresh(!refresh);
   };
 
   return (
@@ -84,7 +76,7 @@ const NoticeForm = () => {
             id='price'
             name='price'
             value={price}
-            onChange={handlePrice}
+            onChange={(e) => setPrice(e.target.value)}
             min="0"
             step="1"
             placeholder='Lütfen saatlik ücretinizi girin.'

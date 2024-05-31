@@ -93,7 +93,6 @@ const TeacherForm = () => {
       setUser({
         username: userName,
         password: password,
-        authorities: 'ROLE_TUTOR',
       });
       navigate('/');
     } catch (error) {
@@ -261,7 +260,7 @@ const StudentForm = () => {
     user: {
       username: userName,
       password: password,
-      authorities: 'ROLE_STUDENT',
+      authorities: ['ROLE_STUDENT'],
     },
   };
 
@@ -282,7 +281,6 @@ const StudentForm = () => {
       setUser({
         username: userName,
         password: password,
-        authorities: ['ROLE_STUDENT']
       });
       navigate('/');
     } catch (error) {

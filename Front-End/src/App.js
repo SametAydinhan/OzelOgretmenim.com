@@ -14,10 +14,12 @@ import TutorDetail from './pages/TutorDetail';
 import { MessagePage } from './pages/MessagePage';
 import ScrollToTop from './components/ScrollTop';
 import EditProfile from './pages/EditProfile';
+import {  UserContextProvider } from './context/UserContext';
 
 function App() {
     return (
         <ContextProvider>
+            <UserContextProvider>
             <Router>
                 <ScrollToTop />
                 <Routes>
@@ -35,6 +37,7 @@ function App() {
                     <Route path='*' element={<h1>Not Found</h1>} />
                 </Routes>
             </Router>
+        </UserContextProvider>
         </ContextProvider>
     );
 }
